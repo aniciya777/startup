@@ -17,6 +17,8 @@ class ChangePracticeScreenState extends ScreenWithBackState {
     return PracticeButton(practice: practice);
   }).toList();
 
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return builder(
@@ -28,11 +30,12 @@ class ChangePracticeScreenState extends ScreenWithBackState {
           ),
         ),
         child: Scrollbar(
+          controller: _scrollController,
           thickness: 10.0,
           thumbVisibility: true,
           trackVisibility: true,
           child: GridView.count(
-            controller: ScrollController(),
+            controller: _scrollController,
             primary: false,
             padding: const EdgeInsets.all(50),
             crossAxisSpacing: 30,
