@@ -1,11 +1,12 @@
 import 'package:startup/screens/change_practice.dart';
-import 'package:startup/screens/templates/change_theory.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:startup/shared/strings.dart';
 import 'package:startup/widgets/chapter_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'change_theory.dart';
 
 class ChangeLevelScreen extends ScreenWithBack {
   const ChangeLevelScreen({super.key, super.onExitTap});

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "264923401330",
+    "firebase_url": "https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "startup-my-app",
     "storage_bucket": "startup-my-app.appspot.com"
   },

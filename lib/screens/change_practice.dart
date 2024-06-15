@@ -2,7 +2,6 @@ import 'package:startup/models/practice/storage.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:startup/widgets/practice_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChangePracticeScreen extends ScreenWithBack {

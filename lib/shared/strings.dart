@@ -1,9 +1,9 @@
 import 'dart:core';
 
 class StaticStrings {
-  static const String newGame = 'Новая игра';
-  static const String continue_ = 'Продолжить';
+  static const String game = 'Продолжить курс';
   static const String achievements = 'Достижения';
+  static const String logout = 'Выйти из аккаунта';
   static const String changeUser = 'Сменить пользователя';
   static const String exit = 'Выход';
   static const String email = 'Почта';
@@ -19,4 +19,9 @@ class StaticStrings {
     'Практика',
     'Мой план',
   ];
+  static const String yesBtn = 'Да';
+  static const String noBtn = 'Нет';
+  static const String logoutTitle = 'Подтверждение';
+  static const String logoutAlert = 'Вы уверены, что хотите выйти из аккаунта?';
+  static const String theoryTitle = 'ВЫБЕРИТЕ ТЕМУ:';
 }

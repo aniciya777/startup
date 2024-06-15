@@ -48,6 +48,7 @@ class DefaultFirebaseOptions {
     authDomain: 'startup-my-app.firebaseapp.com',
     storageBucket: 'startup-my-app.appspot.com',
     measurementId: 'G-7XX9H6HB3T',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -56,6 +57,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
     storageBucket: 'startup-my-app.appspot.com',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'startup-my-app',
     storageBucket: 'startup-my-app.appspot.com',
     iosBundleId: 'edu.anisiya.startup',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -74,6 +77,7 @@ class DefaultFirebaseOptions {
     projectId: 'startup-my-app',
     storageBucket: 'startup-my-app.appspot.com',
     iosBundleId: 'edu.anisiya.startup',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -84,6 +88,7 @@ class DefaultFirebaseOptions {
     authDomain: 'startup-my-app.firebaseapp.com',
     storageBucket: 'startup-my-app.appspot.com',
     measurementId: 'G-DLPHBHV0XZ',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
 }

@@ -1,18 +1,14 @@
 import 'dart:async';
 
-import 'package:startup/screens/enter.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/strings.dart';
 import 'package:startup/widgets/menu_button.dart';
 import 'package:startup/widgets/menu_input.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../widgets/menu_email.dart';
 import '../widgets/menu_password.dart';
-import 'home.dart';
 
 class LoginScreen extends ScreenWithBack {
   const LoginScreen({super.key, super.onExitTap});
@@ -68,8 +64,8 @@ class LoginScreenState extends ScreenWithBackState {
   }
 
   login() {
-    final email = _emailInput.value.trim();
-    final password = _passwordInput.value.trim();
+    // final email = _emailInput.value.trim();
+    // final password = _passwordInput.value.trim();
     // TODO
 
     _emailErrorController.add(null);

@@ -1,12 +1,18 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:startup/models/practice/practice.dart';
 
 class PracticeStorage {
-  PracticeStorage._internal();
-  static List<Practice> _storage = [];
+  static final DatabaseReference _ref = FirebaseDatabase.instance.ref();
+
+  static final List<Practice> _storage = [];
 
   static final PracticeStorage _instance = PracticeStorage._internal();
 
-  static PracticeStorage get instance => _instance;
+  factory PracticeStorage() => _instance;
+
+  PracticeStorage._internal() {
+    // TODO
+  }
 
   static Practice? get(int index) {
     if (index >= _storage.length || index <= 0) return null;
@@ -22,6 +28,6 @@ class PracticeStorage {
   }
 
   static int get size {
-    return 100;
+    return 10;
   }
 }

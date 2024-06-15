@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:startup/screens/change_level.dart';
 import 'package:startup/shared/strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -36,16 +36,16 @@ class HomeScreenState extends DefaultScreenState {
         ),
         Menu(
           labels: const [
-            StaticStrings.newGame,
-            StaticStrings.continue_,
+            StaticStrings.game,
             StaticStrings.achievements,
+            StaticStrings.logout,
             StaticStrings.changeUser,
             StaticStrings.exit,
           ],
           callbacks: [
-            newGame,
             game,
             achievements,
+            logout,
             changeUser,
             exit
           ],
@@ -56,11 +56,6 @@ class HomeScreenState extends DefaultScreenState {
 
   achievements() {
     // TODO
-  }
-
-  newGame() {
-    // TODO
-    game();
   }
 
   game() {
@@ -90,5 +85,46 @@ class HomeScreenState extends DefaultScreenState {
 
   exit() {
     SystemNavigator.pop();
+  }
+
+  logout() async {
+    bool result = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(StaticStrings.logoutTitle),
+          content: const Text(StaticStrings.logoutAlert, style: TextStyle(fontSize: 20),),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pop(false); // dismisses only the dialog and returns false
+              },
+              child: const Text(StaticStrings.noBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true)
+                    .pop(true); // dismisses only the dialog and returns true
+              },
+              child: const Text(StaticStrings.yesBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result) {
+      Navigator.pushReplacement(
+          context,
+          PageTransition(
+            childCurrent: widget,
+            alignment: Alignment.center,
+            type: PageTransitionType.scale,
+            duration: const Duration(milliseconds: 500),
+            child:
+            EnterScreen(onExitTap: () => {Navigator.pop(context)}),
+          ));
+    }
   }
 }
