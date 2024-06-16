@@ -1,6 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:startup/models/practice/practice.dart';
 import 'package:startup/models/theory/theory.dart';
 
 class TheoryStorage {

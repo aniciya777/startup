@@ -24,4 +24,10 @@ class StaticStrings {
   static const String logoutTitle = 'Подтверждение';
   static const String logoutAlert = 'Вы уверены, что хотите выйти из аккаунта?';
   static const String theoryTitle = 'ВЫБЕРИТЕ ТЕМУ:';
+  static const String testOnTopic = 'Тест по теме';
+  static const String topic = 'Тема';
+  static const String myPlanTitle = 'Мой план';
+  static const String next = 'Далее';
+  static const String planTitle = 'Мой бизнес-план';
+  static const String advice = 'Совет: ';
 }

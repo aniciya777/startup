@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: StaticColors.backgroundColor),
         useMaterial3: true,
       ),
-      initialRoute: '/home',
+      initialRoute: '/greetings',
       routes: {
         '/greetings': (context) => const GreetingsScreen(),
         '/enter': (context) =>

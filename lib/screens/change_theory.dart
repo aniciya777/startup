@@ -1,10 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:startup/models/practice/storage.dart';
 import 'package:startup/models/theory/storage.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:startup/shared/strings.dart';
-import 'package:startup/widgets/practice_button.dart';
 import 'package:flutter/material.dart';
 import 'package:startup/widgets/theory_button.dart';
 

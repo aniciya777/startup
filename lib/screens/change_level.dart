@@ -1,4 +1,5 @@
 import 'package:startup/screens/change_practice.dart';
+import 'package:startup/screens/plan_preview.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:startup/shared/strings.dart';
@@ -83,6 +84,15 @@ class ChangeLevelScreenState extends ScreenWithBackState {
   }
 
   openMyPlan() {
-    // TODO
+    Navigator.push(
+        context,
+        PageTransition(
+          childCurrent: chapterButtons[1],
+          alignment: Alignment.center,
+          type: PageTransitionType.size,
+          duration: const Duration(milliseconds: 250),
+          child:
+          PlanPreviewScreen(),
+        ));
   }
 }

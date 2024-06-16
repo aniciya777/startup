@@ -67,6 +67,9 @@ class GreetingsScreenState extends DefaultScreenState
           _animated = true;
         });
       },
+      onDoubleTap: () {
+        Navigator.pushReplacementNamed(context, '/enter');
+      },
       child: Container(
         width: double.infinity,
         height: double.infinity,

@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../models/theory/theory.dart';
+import '../screens/theory.dart';
 
 class TheoryButton extends StatelessWidget {
   final Theory theory;
+  late final BuildContext _context;
 
-  const TheoryButton({super.key, required this.theory});
+  TheoryButton({super.key, required this.theory});
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -40,6 +44,13 @@ class TheoryButton extends StatelessWidget {
   }
 
   onTap() {
-
+    Navigator.push(
+        _context,
+        PageTransition(
+          alignment: Alignment.center,
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 250),
+          child:  TheoryScreen(theory),
+        ));
   }
 }
