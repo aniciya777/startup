@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:page_transition/page_transition.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/strings.dart';
 import 'package:startup/widgets/menu_button.dart';
@@ -7,8 +8,11 @@ import 'package:startup/widgets/menu_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/user/_exceptions.dart';
+import '../models/user/auth.dart';
 import '../widgets/menu_email.dart';
 import '../widgets/menu_password.dart';
+import 'home.dart';
 
 class LoginScreen extends ScreenWithBack {
   const LoginScreen({super.key, super.onExitTap});
@@ -63,13 +67,34 @@ class LoginScreenState extends ScreenWithBackState {
     ));
   }
 
-  login() {
-    // final email = _emailInput.value.trim();
-    // final password = _passwordInput.value.trim();
-    // TODO
-
+  login() async {
+    final email = _emailInput.value;
+    final password = _passwordInput.value;
     _emailErrorController.add(null);
     _passwordErrorController.add(null);
+
+    try {
+      await Auth.loginUser(email, password);
+    } on AuthEmailException catch (e) {
+      _emailErrorController.add(e.toString());
+      return;
+    } on AuthPasswordException catch (e) {
+      _passwordErrorController.add(e.toString());
+      return;
+    } on AuthException catch (e) {
+      _emailErrorController.add(e.toString());
+      return;
+    }
+
+    Navigator.pushReplacement(
+        context,
+        PageTransition(
+          alignment: Alignment.center,
+          childCurrent: widget,
+          type: PageTransitionType.scale,
+          duration: const Duration(seconds: 1),
+          child: const HomeScreen(),
+        ));
   }
 
   toRegister() {

@@ -4,6 +4,7 @@ import 'package:startup/screens/change_theory.dart';
 import 'package:startup/screens/enter.dart';
 import 'package:startup/screens/greetings.dart';
 import 'package:startup/screens/home.dart';
+import 'package:startup/screens/initial.dart';
 import 'package:startup/screens/login.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: StaticColors.backgroundColor),
         useMaterial3: true,
       ),
-      initialRoute: '/greetings',
+      initialRoute: '/initial',
       routes: {
+        '/initial': (context) => const InitialScreen(),
         '/greetings': (context) => const GreetingsScreen(),
         '/enter': (context) =>
             EnterScreen(onExitTap: () => {SystemNavigator.pop()}),

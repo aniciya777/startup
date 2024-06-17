@@ -1,15 +1,16 @@
 import 'dart:async';
 
+import 'package:startup/models/user/_exceptions.dart';
 import 'package:startup/screens/login.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/strings.dart';
 import 'package:startup/widgets/menu_button.dart';
 import 'package:startup/widgets/menu_input.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../models/user/auth.dart';
 import '../widgets/menu_email.dart';
 import '../widgets/menu_password.dart';
 import 'home.dart';
@@ -77,30 +78,28 @@ class EnterScreenState extends ScreenWithBackState {
     ));
   }
 
-  register() {
-    final email = _emailInput.value.trim();
-    final password = _passwordInput.value.trim();
-    final repeatPassword = _repeatPasswordInput.value.trim();
+  register() async {
+    final email = _emailInput.value;
+    final password = _passwordInput.value;
+    final repeatPassword = _repeatPasswordInput.value;
+    _emailErrorController.add(null);
+    _passwordErrorController.add(null);
+    _repeatPasswordErrorController.add(null);
+
     try {
-      checkEmail(email);
-      _emailErrorController.add(null);
-    } catch (e) {
-      _emailErrorController.add(e.toString().replaceFirst('Exception: ', ''));
+      await Auth.registerUser(email, password, repeatPassword);
+    } on AuthEmailException catch (e) {
+      _emailErrorController.add(e.toString());
       return;
-    }
-    try {
-      checkPassword(password);
-      _passwordErrorController.add(null);
-    } catch (e) {
-      _passwordErrorController
-          .add(e.toString().replaceFirst('Exception: ', ''));
+    } on AuthPasswordException catch (e) {
+      _passwordErrorController.add(e.toString());
       return;
-    }
-    if (password != repeatPassword) {
-      _repeatPasswordErrorController.add('пароли не совпадают');
+    } on AuthPasswordRepeatException catch (e) {
+      _repeatPasswordErrorController.add(e.toString());
       return;
-    } else {
-      _repeatPasswordErrorController.add(null);
+    } on AuthException catch (e) {
+      _emailErrorController.add(e.toString());
+      return;
     }
 
     Navigator.pushReplacement(
@@ -124,20 +123,5 @@ class EnterScreenState extends ScreenWithBackState {
           duration: const Duration(milliseconds: 250),
           child: LoginScreen(onExitTap: () => {Navigator.pop(context)}),
         ));
-  }
-
-  static void checkEmail(String email) {
-    if (email.isEmpty) {
-      throw Exception('введите email');
-    }
-    if (!EmailValidator.validate(email)) {
-      throw Exception('некорректный email');
-    }
-  }
-
-  static void checkPassword(String password) {
-    if (password.length < minPasswordLength) {
-      throw Exception('не менее $minPasswordLength символов');
-    }
   }
 }

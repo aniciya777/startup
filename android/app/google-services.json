@@ -13,7 +13,12 @@
           "package_name": "edu.anisiya.startup"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "264923401330-n66c08cetq0rphdqra4m46slp4tl5sh8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBFrnwQVOSBpd_i3Z2gvPEDPToXGgsNYkg"
@@ -21,7 +26,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264923401330-n66c08cetq0rphdqra4m46slp4tl5sh8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "264923401330-o9iebtsbe3qhk50vdth89dj6r5c37d7t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "edu.anisiya.startup"
+              }
+            }
+          ]
         }
       }
     }

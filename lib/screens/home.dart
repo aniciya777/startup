@@ -4,6 +4,7 @@ import 'package:startup/shared/strings.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../models/user/auth.dart';
 import '../widgets/menu.dart';
 import 'enter.dart';
 import 'templates/default.dart';
@@ -98,14 +99,15 @@ class HomeScreenState extends DefaultScreenState {
             TextButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true)
-                    .pop(false); // dismisses only the dialog and returns false
+                    .pop(false);
               },
               child: const Text(StaticStrings.noBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(context, rootNavigator: true)
-                    .pop(true); // dismisses only the dialog and returns true
+                    .pop(true);
+                await Auth.logout();
               },
               child: const Text(StaticStrings.yesBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
             ),

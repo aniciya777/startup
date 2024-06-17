@@ -30,4 +30,15 @@ class StaticStrings {
   static const String next = 'Далее';
   static const String planTitle = 'Мой бизнес-план';
   static const String advice = 'Совет: ';
+  static const String errorEmailUse = 'email уже используется';
+  static const String errorPasswordWeak = 'пароль слишком слабый';
+  static const String errorPasswordNotMatch = 'пароли не совпадают';
+  static const String errorEmailEmpty = 'введите email';
+  static const String errorPasswordEmpty = 'введите пароль';
+  static const String errorPasswordShort = 'не менее % символов';
+  static const String errorUnknown = 'неизвестная ошибка';
+  static const String errorEmailInvalid = 'некорректный email';
+  static const String errorEmailNotFound = 'email не зарегистрирован';
+  static const String errorPasswordInvalid = 'неверный пароль';
+  static const String errorCredentialsInvalid = 'неверный email/пароль';
 }
