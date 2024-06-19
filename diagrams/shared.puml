@@ -1,0 +1,79 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::shared::colors.dart::StaticColors" {
+  {static} +Color backgroundColor
+  {static} +Color button
+  {static} +Color buttonText
+  {static} +Color greetingText
+  {static} +Color greetingStartColor
+  {static} +Color greetingEndColor
+  {static} +Color errorText
+  {static} +Color back
+  {static} +Color practice
+  {static} +Color practiceSolved
+  {static} +Color practiceNotSolved
+}
+
+"startup::shared::colors.dart::StaticColors" o-- "dart::ui::Color"
+
+class "startup::shared::markdown.dart::StaticMarkdown" {
+  {static} -TextStyle _style
+  {static} +MarkdownStyleSheet getStyle()
+}
+
+"startup::shared::markdown.dart::StaticMarkdown" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "startup::shared::scheme_plan.dart::SchemePlan" {
+  {static} +TextStyle textStyle
+  {static} +List<String> keys
+  {static} +List<String> labels
+  {static} +List<String> placeholders
+  {static} +List<InlineSpan?> spans
+  {static} +int length
+}
+
+"startup::shared::scheme_plan.dart::SchemePlan" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "startup::shared::strings.dart::StaticStrings" {
+  {static} +String game
+  {static} +String achievements
+  {static} +String logout
+  {static} +String changeUser
+  {static} +String exit
+  {static} +String email
+  {static} +String password
+  {static} +String repeatPassword
+  {static} +String register
+  {static} +String login
+  {static} +String toLogin
+  {static} +String toRegister
+  {static} +String greeting
+  {static} +List<String> chapterTitles
+  {static} +String yesBtn
+  {static} +String noBtn
+  {static} +String logoutTitle
+  {static} +String logoutAlert
+  {static} +String theoryTitle
+  {static} +String testOnTopic
+  {static} +String topic
+  {static} +String myPlanTitle
+  {static} +String next
+  {static} +String planTitle
+  {static} +String planPlaceholder
+  {static} +String advice
+  {static} +String errorEmailUse
+  {static} +String errorPasswordWeak
+  {static} +String errorPasswordNotMatch
+  {static} +String errorEmailEmpty
+  {static} +String errorPasswordEmpty
+  {static} +String errorPasswordShort
+  {static} +String errorUnknown
+  {static} +String errorEmailInvalid
+  {static} +String errorEmailNotFound
+  {static} +String errorPasswordInvalid
+  {static} +String errorCredentialsInvalid
+}
+
+
+@enduml

@@ -1,0 +1,216 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::screens::change_level.dart::ChangeLevelScreen" {
+  +ChangeLevelScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_level.dart::ChangeLevelScreen"
+
+class "startup::screens::change_level.dart::ChangeLevelScreenState" {
+  +List<ChapterButton> chapterButtons
+  +void initState()
+  +Widget build()
+  +dynamic openTheory()
+  +dynamic openPractice()
+  +dynamic openMyPlan()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_level.dart::ChangeLevelScreenState"
+
+class "startup::screens::change_practice.dart::ChangePracticeScreen" {
+  +ChangePracticeScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_practice.dart::ChangePracticeScreen"
+
+class "startup::screens::change_practice.dart::ChangePracticeScreenState" {
+  +List<Widget> practices
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_practice.dart::ChangePracticeScreenState"
+
+class "startup::screens::change_theory.dart::ChangeTheoryScreen" {
+  +ChangeTheoryScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreen"
+
+class "startup::screens::change_theory.dart::ChangeTheoryScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreenState"
+
+class "startup::screens::enter.dart::EnterScreen" {
+  +EnterScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::enter.dart::EnterScreen"
+
+class "startup::screens::enter.dart::EnterScreenState" {
+  {static} +int minPasswordLength
+  +void initState()
+  +Widget build()
+  +dynamic register()
+  +dynamic toLogin()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::enter.dart::EnterScreenState"
+
+class "startup::screens::greetings.dart::GreetingsScreen" {
+  +GreetingsScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::greetings.dart::GreetingsScreen"
+
+class "startup::screens::greetings.dart::GreetingsScreenState" {
+  -double _size
+  -double _originalSize
+  -bool _animated
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::greetings.dart::GreetingsScreenState"
+"flutter::src::widgets::ticker_provider.dart::TickerProviderStateMixin" <|-- "startup::screens::greetings.dart::GreetingsScreenState"
+
+class "startup::screens::home.dart::HomeScreen" {
+  +HomeScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::home.dart::HomeScreen"
+
+class "startup::screens::home.dart::HomeScreenState" {
+  +Widget build()
+  +dynamic achievements()
+  +dynamic game()
+  +dynamic changeUser()
+  +dynamic exit()
+  +dynamic logout()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::home.dart::HomeScreenState"
+
+class "startup::screens::initial.dart::InitialScreen" {
+  +DefaultScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::initial.dart::InitialScreen"
+
+class "startup::screens::initial.dart::InitialScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::initial.dart::InitialScreenState"
+
+class "startup::screens::login.dart::LoginScreen" {
+  +LoginScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::login.dart::LoginScreen"
+
+class "startup::screens::login.dart::LoginScreenState" {
+  {static} +int minPasswordLength
+  +void initState()
+  +Widget build()
+  +dynamic login()
+  +dynamic toRegister()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::login.dart::LoginScreenState"
+
+class "startup::screens::plan.dart::PlanScreen" {
+  +int index
+  +PlanScreenState createState()
+  {static} +dynamic exitTap()
+  +dynamic openPlan()
+  {static} +Widget builder()
+}
+
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::plan.dart::PlanScreen"
+
+class "startup::screens::plan.dart::PlanScreenState" {
+  +String initialValue
+  +int index
+  -dynamic _getInitialValue()
+  -dynamic _saveValue()
+  +Widget build()
+}
+
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::plan.dart::PlanScreenState"
+
+class "startup::screens::plan_preview.dart::PlanPreviewScreen" {
+  +PlanPreviewScreenState createState()
+  {static} +dynamic exitTap()
+  {static} +dynamic openPlan()
+}
+
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::plan_preview.dart::PlanPreviewScreen"
+
+class "startup::screens::plan_preview.dart::PlanPreviewScreenState" {
+  {static} -DatabaseReference _ref
+  +String text
+  +Widget build()
+}
+
+"startup::screens::plan_preview.dart::PlanPreviewScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::plan_preview.dart::PlanPreviewScreenState"
+
+class "startup::screens::templates::default.dart::DefaultScreen" {
+  +State<DefaultScreen> createState()
+}
+
+class "startup::screens::templates::default.dart::DefaultScreenState" {
+  {static} +Widget builder()
+  +Widget build()
+  +void initState()
+}
+
+class "startup::screens::templates::main.dart::MainScreen" {
+  +String title
+  +String? subTitle
+  +MainScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::templates::main.dart::MainScreen"
+
+class "startup::screens::templates::main.dart::MainScreenState" {
+  +Widget builder()
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::main.dart::MainScreenState"
+
+class "startup::screens::templates::with_back.dart::ScreenWithBack" {
+  +ScreenWithBackState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::templates::with_back.dart::ScreenWithBack"
+
+class "startup::screens::templates::with_back.dart::ScreenWithBackState" {
+  +Widget builder()
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::with_back.dart::ScreenWithBackState"
+
+class "startup::screens::theory.dart::TheoryScreen" {
+  +Theory theory
+  +TheoryScreenState createState()
+  {static} +dynamic exitTap()
+}
+
+"startup::screens::theory.dart::TheoryScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::theory.dart::TheoryScreen"
+
+class "startup::screens::theory.dart::TheoryScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::theory.dart::TheoryScreenState"
+
+
+@enduml

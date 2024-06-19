@@ -19,6 +19,7 @@ class ChangeTheoryScreenState extends ScreenWithBackState {
   @override
   Widget build(BuildContext context) {
     return builder(
+      context,
       Container(
           width: double.infinity,
           height: double.infinity,
@@ -79,5 +80,11 @@ class ChangeTheoryScreenState extends ScreenWithBackState {
             ],
           )),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

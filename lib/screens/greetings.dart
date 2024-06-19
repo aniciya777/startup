@@ -60,7 +60,7 @@ class GreetingsScreenState extends DefaultScreenState
 
   @override
   Widget build(BuildContext context) {
-    return DefaultScreenState.builder(GestureDetector(
+    return DefaultScreenState.builder(context, GestureDetector(
       onTap: () {
         _controllerSize.forward();
         setState(() {

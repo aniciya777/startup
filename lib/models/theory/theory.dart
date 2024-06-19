@@ -2,6 +2,7 @@ class Theory {
   final int id;
   final String title;
   final String text;
+  bool visited = false;
 
-  const Theory(this.id, this.title, this.text);
+  Theory(this.id, this.title, this.text);
 }

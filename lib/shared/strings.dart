@@ -17,7 +17,7 @@ class StaticStrings {
   static const List<String> chapterTitles = [
     'Теория',
     'Практика',
-    'Мой план',
+    'Мой\nбизнес-план',
   ];
   static const String yesBtn = 'Да';
   static const String noBtn = 'Нет';
@@ -29,6 +29,7 @@ class StaticStrings {
   static const String myPlanTitle = 'Мой план';
   static const String next = 'Далее';
   static const String planTitle = 'Мой бизнес-план';
+  static const String planPlaceholder = 'Напишите тут свои выводы...';
   static const String advice = 'Совет: ';
   static const String errorEmailUse = 'email уже используется';
   static const String errorPasswordWeak = 'пароль слишком слабый';

@@ -22,7 +22,7 @@ class InitialScreenState extends DefaultScreenState {
       }
     });
 
-    return DefaultScreenState.builder(const Center(
+    return DefaultScreenState.builder(context, const Center(
       child:
           SizedBox(height: 100, width: 100, child: CircularProgressIndicator()),
     ));

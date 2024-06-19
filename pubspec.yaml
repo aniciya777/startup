@@ -33,10 +33,6 @@ dependencies:
   page_transition: 2.1.0
   email_validator: ^2.1.16
   flutter_svg: ^2.0.10+1
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   firebase_core: ^3.1.0
   firebase_database: ^11.0.1
@@ -44,20 +40,38 @@ dependencies:
   url_launcher: ^6.3.0
   firebase_auth: ^5.1.0
   shared_preferences: ^2.2.3
+  flutter_launcher_icons: ^0.12.0
+  flutter_keyboard_visibility: ^6.0.0
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  dcdg: ^4.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_launcher_icons:
+  image_path: "assets/images/icon.png"
+  android: true
+  ios: true
+  min_sdk_android: 23
+  remove_alpha_ios: true
+  background_color_ios: "#ffffff"
+  web:
+    generate: true
+    image_path: "assets/images/icon.png"
+    background_color: "#C6D9DB"
+    theme_color: "#C6D9DB"
+  windows:
+    generate: true
+    image_path: "assets/images/icon.png"
+    icon_size: 256
+  macos:
+    generate: true
+    image_path: "assets/images/icon.png"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -72,7 +86,6 @@ flutter:
     - assets/images/
     - assets/images/chapters/
     - assets/vectors/
-  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -99,3 +112,34 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+flutter_native_splash:
+  # dart run flutter_native_splash:create
+
+  color: "#001428"
+  image: assets/images/icon.png
+  #branding: assets/dart.png
+  android_12:
+  # The image parameter sets the splash screen icon image.  If this parameter is not specified,
+  # the app's launcher icon will be used instead.
+  # Please note that the splash screen will be clipped to a circle on the center of the screen.
+  # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
+  # 640 pixels in diameter.
+  # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
+  # 768 pixels in diameter.
+    image: assets/images/icon_android12splash.png
+
+  # Splash screen background color.
+    color: "#001428"
+
+  # App icon background color.
+  #icon_background_color: "#111111"
+  android: true
+  ios: true
+  web: true
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+  android_screen_orientation: sensorLandscape
+  fullscreen: true

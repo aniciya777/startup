@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import '../../shared/colors.dart';
 
@@ -11,7 +12,7 @@ class DefaultScreen extends StatefulWidget {
 }
 
 class DefaultScreenState extends State<DefaultScreen> {
-  static Widget builder(Widget? child) {
+  static Widget builder(BuildContext context, Widget? child) {
     return Container(
       decoration: const BoxDecoration(color: StaticColors.backgroundColor),
       width: double.infinity,
@@ -22,7 +23,7 @@ class DefaultScreenState extends State<DefaultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return builder(null);
+    return builder(context, null);
   }
 
   @override

@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:startup/models/plan/storage.dart';
 import 'package:startup/screens/templates/main.dart';
 import 'package:startup/shared/colors.dart';
 import 'package:startup/shared/scheme_plan.dart';
@@ -128,12 +127,35 @@ class PlanScreen extends MainScreen {
 }
 
 class PlanScreenState extends MainScreenState {
+  var initialValue = '';
+  late int index;
+
+  _getInitialValue() async {
+    var newInitialValue = await PlanStorage.get(index);
+    setState(() {
+      initialValue = newInitialValue;
+    });
+  }
+
+  _saveValue(String value) {
+    PlanStorage.set(index, value).whenComplete(() => {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    index = (widget as PlanScreen).index;
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      _getInitialValue();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     PlanScreen.context = context;
-    var index = (widget as PlanScreen).index;
+    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
 
-    return builder(Center(
+    return builder(context, Center(
         child: Container(
             width: 730,
             height: 310,
@@ -159,7 +181,43 @@ class PlanScreenState extends MainScreenState {
                       decoration: TextDecoration.none,
                     )
                   ),
-                )
+                ),
+                Positioned(
+                  top: 52,
+                  left: 7,
+                  right: 7,
+                  bottom: 7,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(15),
+                    borderOnForeground: false,
+                    child: TextFormField(
+                      initialValue: initialValue,
+                      key: Key(initialValue),
+                      onChanged: _saveValue,
+                      decoration: InputDecoration(
+                        labelText: isKeyboardVisible ? null : SchemePlan.placeholders[index],
+                        labelStyle: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 0,
+                        ),
+                        contentPadding: const EdgeInsets.all(7),
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      expands: true,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 1,
+                      ),
+                    ),
+                  )
+                ),
               ],
             ))));
   }

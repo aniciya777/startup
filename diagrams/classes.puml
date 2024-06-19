@@ -1,0 +1,413 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::main.dart::MyApp" {
+  +Widget build()
+}
+
+class "startup::models::plan::storage.dart::PlanStorage" {
+  {static} +dynamic get()
+  {static} +dynamic set()
+}
+
+class "startup::models::practice::practice.dart::Practice" {
+}
+
+class "startup::models::practice::storage.dart::PracticeStorage" {
+  {static} -PracticeStorage _instance
+  {static} +Practice? get()
+  {static} +List<Practice?> getPractices()
+}
+
+"startup::models::practice::storage.dart::PracticeStorage" o-- "startup::models::practice::storage.dart::PracticeStorage"
+
+class "startup::models::theory::storage.dart::TheoryStorage" {
+  {static} -TheoryStorage _instance
+  {static} -dynamic _get
+  {static} +TheoryStorage instance
+  -dynamic _update()
+  +Stream<DataSnapshot> stream()
+  +Theory? get()
+  +List<Theory?> getPractices()
+}
+
+"startup::models::theory::storage.dart::TheoryStorage" o-- "startup::models::theory::storage.dart::TheoryStorage"
+
+class "startup::models::theory::theory.dart::Theory" {
+}
+
+class "startup::models::user::auth.dart::Auth" {
+  {static} +dynamic registerUser()
+  {static} +dynamic loginUser()
+  {static} -dynamic _saveUser()
+  {static} +dynamic logout()
+  {static} +dynamic autoLogin()
+}
+
+class "startup::models::user::_exceptions.dart::AuthException" {
+}
+
+"dart::core::Exception" <|-- "startup::models::user::_exceptions.dart::AuthException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthEmailException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordRepeatException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordRepeatException"
+
+class "startup::models::user::_exceptions.dart::AuthUnknownException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthUnknownException"
+
+class "startup::models::user::_exceptions.dart::AuthCredentialsInvalidException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthCredentialsInvalidException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailInvalidException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailInvalidException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailAlreadyInUseException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailAlreadyInUseException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailEmptyException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailEmptyException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailNotFoundException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailNotFoundException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordEmptyException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordEmptyException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordWeakException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordWeakException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordNotMatchException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordRepeatException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordNotMatchException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordTooShortException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordTooShortException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordWrongException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordWrongException"
+
+class "startup::screens::change_level.dart::ChangeLevelScreen" {
+  +ChangeLevelScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_level.dart::ChangeLevelScreen"
+
+class "startup::screens::change_level.dart::ChangeLevelScreenState" {
+  +void initState()
+  +Widget build()
+  +dynamic openTheory()
+  +dynamic openPractice()
+  +dynamic openMyPlan()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_level.dart::ChangeLevelScreenState"
+
+class "startup::screens::change_practice.dart::ChangePracticeScreen" {
+  +ChangePracticeScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_practice.dart::ChangePracticeScreen"
+
+class "startup::screens::change_practice.dart::ChangePracticeScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_practice.dart::ChangePracticeScreenState"
+
+class "startup::screens::change_theory.dart::ChangeTheoryScreen" {
+  +ChangeTheoryScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreen"
+
+class "startup::screens::change_theory.dart::ChangeTheoryScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreenState"
+
+class "startup::screens::enter.dart::EnterScreen" {
+  +EnterScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::enter.dart::EnterScreen"
+
+class "startup::screens::enter.dart::EnterScreenState" {
+  -MenuInput _emailInput
+  -MenuPassword _passwordInput
+  -MenuPassword _repeatPasswordInput
+  +void initState()
+  +Widget build()
+  +dynamic register()
+  +dynamic toLogin()
+}
+
+"startup::screens::enter.dart::EnterScreenState" o-- "startup::widgets::menu_input.dart::MenuInput"
+"startup::screens::enter.dart::EnterScreenState" o-- "startup::widgets::menu_password.dart::MenuPassword"
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::enter.dart::EnterScreenState"
+
+class "startup::screens::greetings.dart::GreetingsScreen" {
+  +GreetingsScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::greetings.dart::GreetingsScreen"
+
+class "startup::screens::greetings.dart::GreetingsScreenState" {
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::greetings.dart::GreetingsScreenState"
+"flutter::src::widgets::ticker_provider.dart::TickerProviderStateMixin" <|-- "startup::screens::greetings.dart::GreetingsScreenState"
+
+class "startup::screens::home.dart::HomeScreen" {
+  +HomeScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::home.dart::HomeScreen"
+
+class "startup::screens::home.dart::HomeScreenState" {
+  +Widget build()
+  +dynamic achievements()
+  +dynamic game()
+  +dynamic changeUser()
+  +dynamic exit()
+  +dynamic logout()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::home.dart::HomeScreenState"
+
+class "startup::screens::initial.dart::InitialScreen" {
+  +DefaultScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::initial.dart::InitialScreen"
+
+class "startup::screens::initial.dart::InitialScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::initial.dart::InitialScreenState"
+
+class "startup::screens::login.dart::LoginScreen" {
+  +LoginScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::login.dart::LoginScreen"
+
+class "startup::screens::login.dart::LoginScreenState" {
+  -MenuInput _emailInput
+  -MenuPassword _passwordInput
+  +void initState()
+  +Widget build()
+  +dynamic login()
+  +dynamic toRegister()
+}
+
+"startup::screens::login.dart::LoginScreenState" o-- "startup::widgets::menu_input.dart::MenuInput"
+"startup::screens::login.dart::LoginScreenState" o-- "startup::widgets::menu_password.dart::MenuPassword"
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::login.dart::LoginScreenState"
+
+class "startup::screens::plan.dart::PlanScreen" {
+  +PlanScreenState createState()
+  {static} +dynamic exitTap()
+  +dynamic openPlan()
+  {static} +Widget builder()
+}
+
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::plan.dart::PlanScreen"
+
+class "startup::screens::plan.dart::PlanScreenState" {
+  -dynamic _getInitialValue()
+  -dynamic _saveValue()
+  +Widget build()
+}
+
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::plan.dart::PlanScreenState"
+
+class "startup::screens::plan_preview.dart::PlanPreviewScreen" {
+  +PlanPreviewScreenState createState()
+  {static} +dynamic exitTap()
+  {static} +dynamic openPlan()
+}
+
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::plan_preview.dart::PlanPreviewScreen"
+
+class "startup::screens::plan_preview.dart::PlanPreviewScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::plan_preview.dart::PlanPreviewScreenState"
+
+class "startup::screens::templates::default.dart::DefaultScreen" {
+  +State<DefaultScreen> createState()
+}
+
+class "startup::screens::templates::default.dart::DefaultScreenState" {
+  {static} +Widget builder()
+  +Widget build()
+  +void initState()
+}
+
+class "startup::screens::templates::main.dart::MainScreen" {
+  +MainScreenState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::templates::main.dart::MainScreen"
+
+class "startup::screens::templates::main.dart::MainScreenState" {
+  +Widget builder()
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::main.dart::MainScreenState"
+
+class "startup::screens::templates::with_back.dart::ScreenWithBack" {
+  +ScreenWithBackState createState()
+}
+
+"startup::screens::templates::default.dart::DefaultScreen" <|-- "startup::screens::templates::with_back.dart::ScreenWithBack"
+
+class "startup::screens::templates::with_back.dart::ScreenWithBackState" {
+  +Widget builder()
+  +Widget build()
+}
+
+"startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::with_back.dart::ScreenWithBackState"
+
+class "startup::screens::theory.dart::TheoryScreen" {
+  +Theory theory
+  +TheoryScreenState createState()
+  {static} +dynamic exitTap()
+}
+
+"startup::screens::theory.dart::TheoryScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::theory.dart::TheoryScreen"
+
+class "startup::screens::theory.dart::TheoryScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::theory.dart::TheoryScreenState"
+
+class "startup::shared::colors.dart::StaticColors" {
+}
+
+class "startup::shared::markdown.dart::StaticMarkdown" {
+  {static} +MarkdownStyleSheet getStyle()
+}
+
+class "startup::shared::scheme_plan.dart::SchemePlan" {
+}
+
+class "startup::shared::strings.dart::StaticStrings" {
+}
+
+class "startup::widgets::chapter_button.dart::ChapterButton" {
+  +Widget build()
+}
+
+class "startup::widgets::menu.dart::Menu" {
+  +Widget build()
+}
+
+class "startup::widgets::menu_button.dart::MenuButton" {
+  +Widget build()
+}
+
+class "startup::widgets::menu_email.dart::MenuEmail" {
+  +StateMenuEmail createState()
+}
+
+"startup::widgets::menu_input.dart::MenuInput" <|-- "startup::widgets::menu_email.dart::MenuEmail"
+
+class "startup::widgets::menu_email.dart::StateMenuEmail" {
+}
+
+"startup::widgets::menu_input.dart::StateMenuInput" <|-- "startup::widgets::menu_email.dart::StateMenuEmail"
+
+class "startup::widgets::menu_input.dart::MenuInput" {
+  +State<MenuInput> createState()
+}
+
+class "startup::widgets::menu_input.dart::StateMenuInput" {
+  +Widget build()
+  +void dispose()
+}
+
+class "startup::widgets::menu_password.dart::MenuPassword" {
+  +StateMenuPassword createState()
+}
+
+"startup::widgets::menu_input.dart::MenuInput" <|-- "startup::widgets::menu_password.dart::MenuPassword"
+
+class "startup::widgets::menu_password.dart::StateMenuPassword" {
+  +dynamic toggleObscureText()
+}
+
+"startup::widgets::menu_input.dart::StateMenuInput" <|-- "startup::widgets::menu_password.dart::StateMenuPassword"
+
+class "startup::widgets::practice_button.dart::PracticeButton" {
+  +Practice? practice
+  +Widget build()
+  -Widget _buildNull()
+  -Widget _buildPractice()
+}
+
+"startup::widgets::practice_button.dart::PracticeButton" o-- "startup::models::practice::practice.dart::Practice"
+
+class "startup::widgets::theory_button.dart::TheoryButton" {
+  +Theory theory
+  +Widget build()
+  +dynamic onTap()
+}
+
+"startup::widgets::theory_button.dart::TheoryButton" o-- "startup::models::theory::theory.dart::Theory"
+
+
+@enduml

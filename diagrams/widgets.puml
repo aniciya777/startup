@@ -1,0 +1,76 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::widgets::chapter_button.dart::ChapterButton" {
+  +String title
+  +Widget build()
+}
+
+class "startup::widgets::menu.dart::Menu" {
+  -List<String> _labels
+  -List<void Function()> _callbacks
+  +Widget build()
+}
+
+class "startup::widgets::menu_button.dart::MenuButton" {
+  +String label
+  +Widget build()
+}
+
+class "startup::widgets::menu_email.dart::MenuEmail" {
+  +StateMenuEmail createState()
+}
+
+"startup::widgets::menu_input.dart::MenuInput" <|-- "startup::widgets::menu_email.dart::MenuEmail"
+
+class "startup::widgets::menu_email.dart::StateMenuEmail" {
+}
+
+"startup::widgets::menu_input.dart::StateMenuInput" <|-- "startup::widgets::menu_email.dart::StateMenuEmail"
+
+class "startup::widgets::menu_input.dart::MenuInput" {
+  +String label
+  +bool? hasNext
+  +String value
+  +State<MenuInput> createState()
+}
+
+class "startup::widgets::menu_input.dart::StateMenuInput" {
+  +bool obscureText
+  +Widget build()
+  +void dispose()
+}
+
+class "startup::widgets::menu_password.dart::MenuPassword" {
+  +StateMenuPassword createState()
+}
+
+"startup::widgets::menu_input.dart::MenuInput" <|-- "startup::widgets::menu_password.dart::MenuPassword"
+
+class "startup::widgets::menu_password.dart::StateMenuPassword" {
+  -bool _obscured
+  +bool obscureText
+  +dynamic toggleObscureText()
+}
+
+"startup::widgets::menu_input.dart::StateMenuInput" <|-- "startup::widgets::menu_password.dart::StateMenuPassword"
+
+class "startup::widgets::practice_button.dart::PracticeButton" {
+  +Practice? practice
+  +Widget build()
+  -Widget _buildNull()
+  -Widget _buildPractice()
+}
+
+"startup::widgets::practice_button.dart::PracticeButton" o-- "startup::models::practice::practice.dart::Practice"
+
+class "startup::widgets::theory_button.dart::TheoryButton" {
+  +Theory theory
+  +Widget build()
+  +dynamic onTap()
+}
+
+"startup::widgets::theory_button.dart::TheoryButton" o-- "startup::models::theory::theory.dart::Theory"
+
+
+@enduml

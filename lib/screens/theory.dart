@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:startup/models/theory/theory.dart';
+import 'package:startup/models/user/user.dart';
 import 'package:startup/screens/templates/main.dart';
 import 'package:startup/shared/strings.dart';
 
@@ -60,14 +61,23 @@ class TheoryScreenState extends MainScreenState {
   final _controller = ScrollController();
 
   @override
+  void initState() {
+    super.initState();
+    _controller.addListener(checkComplete);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkComplete();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     TheoryScreen.context = context;
 
-    return builder(Container(
+    return builder(context, Container(
         width: double.infinity,
         height: double.infinity,
         decoration: ShapeDecoration(
-          color: StaticColors.back,
+          color: color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
@@ -85,5 +95,25 @@ class TheoryScreenState extends MainScreenState {
             styleSheet: StaticMarkdown.getStyle(),
           ),
         )));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  checkComplete() {
+    if (_controller.offset >= _controller.position.maxScrollExtent ||
+        _controller.position.maxScrollExtent <= _controller.position.viewportDimension) {
+      UserProfile.visitTheory((widget as TheoryScreen).theory.id);
+    }
+  }
+
+  Color get color {
+    if ((widget as TheoryScreen).theory.visited) {
+      return StaticColors.practiceSolved;
+    }
+    return StaticColors.back;
   }
 }

@@ -1,0 +1,57 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::models::plan::storage.dart::PlanStorage" {
+  {static} +dynamic get()
+  {static} +dynamic set()
+}
+
+class "startup::models::practice::practice.dart::Practice" {
+  +int id
+  +String title
+  +String text
+}
+
+class "startup::models::practice::storage.dart::PracticeStorage" {
+  {static} -List<Practice> _storage
+  {static} -PracticeStorage _instance
+  {static} +int size
+  {static} +Practice? get()
+  {static} +List<Practice?> getPractices()
+}
+
+"startup::models::practice::storage.dart::PracticeStorage" o-- "startup::models::practice::storage.dart::PracticeStorage"
+
+class "startup::models::theory::storage.dart::TheoryStorage" {
+  {static} -List<Theory> _storage
+  {static} -TheoryStorage _instance
+  {static} -dynamic _get
+  {static} +TheoryStorage instance
+  +int size
+  -dynamic _update()
+  +Stream<DataSnapshot> stream()
+  +Theory? get()
+  +List<Theory?> getPractices()
+}
+
+"startup::models::theory::storage.dart::TheoryStorage" o-- "startup::models::theory::storage.dart::TheoryStorage"
+
+class "startup::models::theory::theory.dart::Theory" {
+  +int id
+  +String title
+  +String text
+}
+
+class "startup::models::user::auth.dart::Auth" {
+  {static} +int minPasswordLength
+  {static} -String _emailKey
+  {static} -String _passwordKey
+  {static} +dynamic registerUser()
+  {static} +dynamic loginUser()
+  {static} -dynamic _saveUser()
+  {static} +dynamic logout()
+  {static} +dynamic autoLogin()
+}
+
+
+@enduml

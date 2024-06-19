@@ -36,30 +36,97 @@ class SchemePlan {
     ];
   }
 
+  static List<String> get placeholders {
+    return [
+      'Сформулируйте основную идею проекта, ключевые цели\nи ожидаемые результаты кратко и привлекательно',
+      'Четко определите основную цель проекта и конкретные задачи,\nкоторые необходимо выполнить для её достижения',
+      'Проведите исследование рынка, определите целевую аудиторию\nи оцените конкуренцию в выбранной нише',
+      'Опишите текущий статус проекта, его команду и ресурсы,\nнеобходимые для реализации',
+      'Детально опишите ваш продукт или услугу, подчеркивая\nих уникальные особенности и преимущества для клиентов',
+      'Идентифицируйте основные риски проекта\nи предложите стратегии их минимизации'
+    ];
+  }
+
   static List<InlineSpan?> get spans {
     return [
-      TextSpan(text: 'Думай головой!', style: SchemePlan.textStyle),
       TextSpan(
-          text: 'Перейди по ссылке',
-          recognizer: TapGestureRecognizer()..onTap = () {
-            launchUrl(
-              Uri.parse('https://boulderbugle.com/DdyfPzKZ')
-            );
-          },
-          style: SchemePlan.textStyle.copyWith(
-            decoration: TextDecoration.underline,
-          )
+          children: [
+            TextSpan(
+                text: 'Идею можно подсмотреть на ', style: SchemePlan.textStyle
+            ),
+            TextSpan(
+              text: 'YouTube',
+              style: SchemePlan.textStyle.copyWith(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()..onTap = () {
+                launchUrl(
+                    Uri.parse('https://www.youtube.com/results?search_query=готовые+бизнес+идеи')
+                );
+              },
+            ),
+          ]
       ),
-      null,
-      null,
-      null,
-      null,
+      TextSpan(text: 'Не вписывайте невыполнимые задачи', style: SchemePlan.textStyle),
+      TextSpan(
+        children: [
+          TextSpan(
+            text: 'Используйте ', style: SchemePlan.textStyle
+          ),
+          TextSpan(
+            text: 'Yandex Wordstat',
+            style: SchemePlan.textStyle.copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            recognizer: TapGestureRecognizer()..onTap = () {
+              launchUrl(
+                  Uri.parse('https://wordstat.yandex.ru/')
+              );
+            },
+          ),
+          TextSpan(
+              text: ' и ', style: SchemePlan.textStyle
+          ),
+          TextSpan(
+            text: 'Google Trends',
+            style: SchemePlan.textStyle.copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            recognizer: TapGestureRecognizer()..onTap = () {
+              launchUrl(
+                  Uri.parse('https://trends.google.ru/trends/')
+              );
+            },
+          ),
+        ]
+      ),
+      TextSpan(text: 'Обязательно расскажите что у вас уже есть', style: SchemePlan.textStyle),
+      TextSpan(text: 'Опишите так, чтобы любой понял суть проекта', style: SchemePlan.textStyle),
+      TextSpan(
+          children: [
+            TextSpan(
+              text: 'RiskWatch',
+              style: SchemePlan.textStyle.copyWith(
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()..onTap = () {
+                launchUrl(
+                    Uri.parse('https://www.riskwatch.com/')
+                );
+              },
+            ),
+            TextSpan(
+                text: ' поможет оценивать риски', style: SchemePlan.textStyle
+            ),
+          ]
+      ),
     ];
   }
 
   static int get length {
     assert(keys.length == labels.length);
     assert(keys.length == spans.length);
+    assert(keys.length == placeholders.length);
     return keys.length;
   }
 }

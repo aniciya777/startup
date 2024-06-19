@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:startup/screens/achievements.dart';
 import 'package:startup/screens/change_level.dart';
 import 'package:startup/shared/strings.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends DefaultScreen {
 class HomeScreenState extends DefaultScreenState {
   @override
   Widget build(BuildContext context) {
-    return DefaultScreenState.builder(Row(
+    return DefaultScreenState.builder(context, Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Container(
@@ -27,7 +28,7 @@ class HomeScreenState extends DefaultScreenState {
           height: 310,
           decoration: ShapeDecoration(
             image: const DecorationImage(
-              image: AssetImage("assets/images/home_icon.png"),
+              image: AssetImage("assets/images/icon.png"),
               fit: BoxFit.fill,
             ),
             shape: RoundedRectangleBorder(
@@ -56,7 +57,15 @@ class HomeScreenState extends DefaultScreenState {
   }
 
   achievements() {
-    // TODO
+    Navigator.push(
+        context,
+        PageTransition(
+          childCurrent: widget,
+          type: PageTransitionType.leftToRightWithFade,
+          duration: const Duration(milliseconds: 500),
+          child:
+          AchievementsScreen(onExitTap: () => {Navigator.pop(context)}),
+        ));
   }
 
   game() {

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:startup/models/user/_exceptions.dart';
+import 'package:startup/models/user/user.dart';
 
 class Auth {
   final _obj = FirebaseAuth.instance;
@@ -37,6 +38,7 @@ class Auth {
         email: email,
         password: password,
       );
+      await UserProfile.update();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthPasswordWeakException();
@@ -75,6 +77,7 @@ class Auth {
         email: email,
         password: password,
       );
+      await UserProfile.update();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
         throw AuthPasswordWrongException();

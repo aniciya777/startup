@@ -13,8 +13,8 @@ class ScreenWithBack extends DefaultScreen {
 }
 
 class ScreenWithBackState extends DefaultScreenState {
-  Widget builder(Widget? child) {
-    return DefaultScreenState.builder(Stack(
+  Widget builder(BuildContext context, Widget? child) {
+    return DefaultScreenState.builder(context, Stack(
       children: [
         Positioned(
             top: 20,
@@ -48,6 +48,6 @@ class ScreenWithBackState extends DefaultScreenState {
 
   @override
   Widget build(BuildContext context) {
-    return builder(null);
+    return builder(context, null);
   }
 }

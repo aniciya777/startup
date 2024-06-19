@@ -48,7 +48,7 @@ class LoginScreenState extends ScreenWithBackState {
 
   @override
   Widget build(BuildContext context) {
-    return builder(Center(
+    return builder(context, Center(
       child: SizedBox(
         width: 300,
         child: Column(

@@ -59,11 +59,12 @@ class PlanPreviewScreenState extends MainScreenState {
   static final DatabaseReference _ref = FirebaseDatabase.instance.ref();
   late Stream<DataSnapshot> _stream;
   late String text;
+  final controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     PlanPreviewScreen.context = context;
-    var controller = ScrollController();
+
 
     var get = _ref.child('plan_preview').get();
     _stream = get.asStream();
@@ -71,7 +72,7 @@ class PlanPreviewScreenState extends MainScreenState {
       text = snapshot.value as String;
     });
 
-    return builder(Container(
+    return builder(context, Container(
       width: double.infinity,
       height: double.infinity,
       decoration: ShapeDecoration(
@@ -107,5 +108,11 @@ class PlanPreviewScreenState extends MainScreenState {
             );
           }),
     ));
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

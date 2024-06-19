@@ -41,7 +41,7 @@ class ChangeLevelScreenState extends ScreenWithBackState {
 
   @override
   Widget build(BuildContext context) {
-    return builder(Center(
+    return builder(context, Center(
       child: Container(
         width: 730,
         height: 310,
@@ -51,6 +51,7 @@ class ChangeLevelScreenState extends ScreenWithBackState {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: chapterButtons,
         ),
       ),

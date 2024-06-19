@@ -1,0 +1,92 @@
+@startuml
+set namespaceSeparator ::
+
+class "startup::models::user::_exceptions.dart::AuthException" {
+}
+
+"dart::core::Exception" <|-- "startup::models::user::_exceptions.dart::AuthException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthEmailException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordRepeatException" {
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordRepeatException"
+
+class "startup::models::user::_exceptions.dart::AuthUnknownException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthUnknownException"
+
+class "startup::models::user::_exceptions.dart::AuthCredentialsInvalidException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthException" <|-- "startup::models::user::_exceptions.dart::AuthCredentialsInvalidException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailInvalidException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailInvalidException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailAlreadyInUseException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailAlreadyInUseException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailEmptyException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailEmptyException"
+
+class "startup::models::user::_exceptions.dart::AuthEmailNotFoundException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthEmailException" <|-- "startup::models::user::_exceptions.dart::AuthEmailNotFoundException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordEmptyException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordEmptyException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordWeakException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordWeakException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordNotMatchException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordRepeatException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordNotMatchException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordTooShortException" {
+  +int size
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordTooShortException"
+
+class "startup::models::user::_exceptions.dart::AuthPasswordWrongException" {
+  +String toString()
+}
+
+"startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordWrongException"
+
+
+@enduml

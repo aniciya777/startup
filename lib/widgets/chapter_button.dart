@@ -33,6 +33,7 @@ class ChapterButton extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             title,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 24,
