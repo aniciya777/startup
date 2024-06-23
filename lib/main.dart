@@ -1,4 +1,10 @@
+import 'dart:io';
+import 'dart:ui';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:startup/screens/achievements.dart';
 import 'package:startup/screens/change_level.dart';
 import 'package:startup/screens/change_practice.dart';
@@ -23,6 +29,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
   runApp(const MyApp());
 }
 
@@ -33,6 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return KeyboardVisibilityProvider(
       child: MaterialApp(
+        builder: FToastBuilder(),
         theme: ThemeData(
           colorScheme:
               ColorScheme.fromSeed(seedColor: StaticColors.backgroundColor),

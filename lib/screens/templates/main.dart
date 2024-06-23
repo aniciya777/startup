@@ -64,7 +64,7 @@ class MainScreenState extends DefaultScreenState {
               )),
         ),
         Visibility(
-          visible: isKeyboardVisible,
+          visible: !isKeyboardVisible,
           child: Positioned(
               top: 28,
               left: 112,

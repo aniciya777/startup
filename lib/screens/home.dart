@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:startup/models/user/easter_egg.dart';
+import 'package:startup/models/user/user.dart';
 import 'package:startup/screens/achievements.dart';
 import 'package:startup/screens/change_level.dart';
 import 'package:startup/shared/strings.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../models/user/auth.dart';
+import '../shared/colors.dart';
 import '../widgets/menu.dart';
 import 'enter.dart';
 import 'templates/default.dart';
@@ -17,43 +20,92 @@ class HomeScreen extends DefaultScreen {
   HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeScreenState extends DefaultScreenState {
+class HomeScreenState extends DefaultScreenState with TickerProviderStateMixin {
+  static const minCountTaps = 10;
+  static int countTaps = 0;
+  late Animation<double> _animationSize;
+  late AnimationController _controllerSize;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerSize =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    _animationSize = Tween<double>(begin: 1, end: -1).animate(
+      CurvedAnimation(
+        parent: _controllerSize,
+        curve: Curves.fastOutSlowIn,
+      ),
+    )..addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultScreenState.builder(context, Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-          width: 300,
-          height: 310,
-          decoration: ShapeDecoration(
-            image: const DecorationImage(
-              image: AssetImage("assets/images/icon.png"),
-              fit: BoxFit.fill,
+    return DefaultScreenState.builder(
+        context,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              width: 300,
+              child: GestureDetector(
+                onTap: iconTap,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Visibility(
+                      visible: _animationSize.value <= 0,
+                      child: Opacity(
+                        opacity: (_animationSize.value > 0) ? 0 : -_animationSize.value,
+                        child: Text(
+                          EasterEgg.countTaps.toString(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            decoration: TextDecoration.none,
+                            color: StaticColors.greetingText,
+                            fontSize: 40,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 300 * _animationSize.value.abs(),
+                      height: 310,
+                      decoration: ShapeDecoration(
+                        image: DecorationImage(
+
+                          image: AssetImage((_animationSize.value > 0)
+                              ? "assets/images/icon.png"
+                              : "assets/images/hamster.jpg"),
+                          fit: BoxFit.fill,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(65),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(65),
-            ),
-          ),
-        ),
-        Menu(
-          labels: const [
-            StaticStrings.game,
-            StaticStrings.achievements,
-            StaticStrings.logout,
-            StaticStrings.changeUser,
-            StaticStrings.exit,
+            Menu(
+              labels: const [
+                StaticStrings.game,
+                StaticStrings.achievements,
+                StaticStrings.logout,
+                StaticStrings.changeUser,
+                StaticStrings.exit,
+              ],
+              callbacks: [game, achievements, logout, changeUser, exit],
+            )
           ],
-          callbacks: [
-            game,
-            achievements,
-            logout,
-            changeUser,
-            exit
-          ],
-        )
-      ],
-    ));
+        ));
   }
 
   achievements() {
@@ -63,8 +115,7 @@ class HomeScreenState extends DefaultScreenState {
           childCurrent: widget,
           type: PageTransitionType.leftToRightWithFade,
           duration: const Duration(milliseconds: 500),
-          child:
-          AchievementsScreen(onExitTap: () => {Navigator.pop(context)}),
+          child: AchievementsScreen(onExitTap: () => {Navigator.pop(context)}),
         ));
   }
 
@@ -76,8 +127,7 @@ class HomeScreenState extends DefaultScreenState {
           alignment: Alignment.center,
           type: PageTransitionType.scale,
           duration: const Duration(milliseconds: 500),
-          child:
-          ChangeLevelScreen(onExitTap: () => {Navigator.pop(context)}),
+          child: ChangeLevelScreen(onExitTap: () => {Navigator.pop(context)}),
         ));
   }
 
@@ -88,8 +138,7 @@ class HomeScreenState extends DefaultScreenState {
           childCurrent: widget,
           type: PageTransitionType.leftToRightWithFade,
           duration: const Duration(milliseconds: 500),
-          child:
-          EnterScreen(onExitTap: () => {Navigator.pop(context)}),
+          child: EnterScreen(onExitTap: () => {Navigator.pop(context)}),
         ));
   }
 
@@ -103,22 +152,28 @@ class HomeScreenState extends DefaultScreenState {
       builder: (context) {
         return AlertDialog(
           title: const Text(StaticStrings.logoutTitle),
-          content: const Text(StaticStrings.logoutAlert, style: TextStyle(fontSize: 20),),
+          content: const Text(
+            StaticStrings.logoutAlert,
+            style: TextStyle(fontSize: 20),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context, rootNavigator: true)
-                    .pop(false);
+                Navigator.of(context, rootNavigator: true).pop(false);
               },
-              child: const Text(StaticStrings.noBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              child: const Text(StaticStrings.noBtn,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             TextButton(
               onPressed: () async {
-                Navigator.of(context, rootNavigator: true)
-                    .pop(true);
+                Navigator.of(context, rootNavigator: true).pop(true);
                 await Auth.logout();
               },
-              child: const Text(StaticStrings.yesBtn, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red)),
+              child: const Text(StaticStrings.yesBtn,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red)),
             ),
           ],
         );
@@ -133,9 +188,22 @@ class HomeScreenState extends DefaultScreenState {
             alignment: Alignment.center,
             type: PageTransitionType.scale,
             duration: const Duration(milliseconds: 500),
-            child:
-            EnterScreen(onExitTap: () => {Navigator.pop(context)}),
+            child: EnterScreen(onExitTap: () => {Navigator.pop(context)}),
           ));
+    }
+  }
+
+  iconTap() {
+    if (countTaps >= minCountTaps) {
+      setState(() {
+        EasterEgg.incrementCountTaps();
+      });
+    } else {
+      countTaps++;
+      if (countTaps == minCountTaps) {
+        EasterEgg();
+        _controllerSize.forward();
+      }
     }
   }
 }

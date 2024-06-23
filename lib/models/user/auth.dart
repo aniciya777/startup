@@ -6,8 +6,6 @@ import 'package:startup/models/user/_exceptions.dart';
 import 'package:startup/models/user/user.dart';
 
 class Auth {
-  final _obj = FirebaseAuth.instance;
-
   static const int minPasswordLength = 8;
   static const String _emailKey = 'email';
   static const String _passwordKey = 'password';
@@ -40,15 +38,20 @@ class Auth {
       );
       await UserProfile.update();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        throw AuthPasswordWeakException();
-      } else if (e.code == 'email-already-in-use') {
-        throw AuthEmailAlreadyInUseException();
+      switch (e.code) {
+        case 'weak-password':
+          throw AuthPasswordWeakException();
+        case 'email-already-in-use':
+          throw AuthEmailAlreadyInUseException();
+        case 'network-request-failed':
+          throw AuthNetworkException();
+        default:
+          if (kDebugMode) {
+            print(e.message);
+            print('code: ${e.code}');
+          }
+          throw AuthUnknownException();
       }
-      if (kDebugMode) {
-        print(e.message);
-      }
-      throw AuthUnknownException();
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -79,17 +82,22 @@ class Auth {
       );
       await UserProfile.update();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password') {
-        throw AuthPasswordWrongException();
-      } else if (e.code == 'user-not-found') {
-        throw AuthEmailNotFoundException();
-      } else if (e.code == 'invalid-credential') {
-        throw AuthCredentialsInvalidException();
+      switch (e.code) {
+        case 'wrong-password':
+          throw AuthPasswordWrongException();
+        case 'user-not-found':
+          throw AuthEmailNotFoundException();
+        case 'invalid-credential':
+          throw AuthCredentialsInvalidException();
+        case 'network-request-failed':
+          throw AuthNetworkException();
+        default:
+          if (kDebugMode) {
+            print(e.message);
+            print('code: ${e.code}');
+          }
+          throw AuthUnknownException();
       }
-      if (kDebugMode) {
-        print(e.message);
-      }
-      throw AuthUnknownException();
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -118,6 +126,8 @@ class Auth {
     String password = prefs.getString(_passwordKey) ?? '';
     try {
       await loginUser(email, password);
+    } on AuthNetworkException catch (e) {
+      return false;
     } catch (e) {
       await logout();
       return false;

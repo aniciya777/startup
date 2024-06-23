@@ -20,7 +20,7 @@ class AchievementAllPractice extends Achievement {
   String label = 'Пройти все практики курса';
 
   @override
-  set isCompleted(Future<bool> _isCompleted) {
+  set isCompleted(Future<bool> _) {
     throw UnimplementedError();
   }
 }

@@ -5,6 +5,41 @@ class "startup::main.dart::MyApp" {
   +Widget build()
 }
 
+abstract class "startup::models::achievements::achievement.dart::Achievement" {
+  +dynamic isCompleted
+}
+
+class "startup::models::achievements::all_practice.dart::AchievementAllPractice" {
+  {static} -AchievementAllPractice _singleton
+  +dynamic isCompleted
+}
+
+"startup::models::achievements::all_practice.dart::AchievementAllPractice" o-- "startup::models::achievements::all_practice.dart::AchievementAllPractice"
+"startup::models::achievements::achievement.dart::Achievement" <|-- "startup::models::achievements::all_practice.dart::AchievementAllPractice"
+
+class "startup::models::achievements::all_test.dart::AchievementAllTest" {
+  {static} -AchievementAllTest _singleton
+  +dynamic isCompleted
+}
+
+"startup::models::achievements::all_test.dart::AchievementAllTest" o-- "startup::models::achievements::all_test.dart::AchievementAllTest"
+"startup::models::achievements::achievement.dart::Achievement" <|-- "startup::models::achievements::all_test.dart::AchievementAllTest"
+
+class "startup::models::achievements::all_theory.dart::AchievementAllTheory" {
+  {static} -AchievementAllTheory _singleton
+  +dynamic isCompleted
+}
+
+"startup::models::achievements::all_theory.dart::AchievementAllTheory" o-- "startup::models::achievements::all_theory.dart::AchievementAllTheory"
+"startup::models::achievements::achievement.dart::Achievement" <|-- "startup::models::achievements::all_theory.dart::AchievementAllTheory"
+
+class "startup::models::achievements::storage.dart::AchievementStorage" {
+  {static} -AchievementStorage _singleton
+  {static} +Achievement? get()
+}
+
+"startup::models::achievements::storage.dart::AchievementStorage" o-- "startup::models::achievements::storage.dart::AchievementStorage"
+
 class "startup::models::plan::storage.dart::PlanStorage" {
   {static} +dynamic get()
   {static} +dynamic set()
@@ -21,19 +56,56 @@ class "startup::models::practice::storage.dart::PracticeStorage" {
 
 "startup::models::practice::storage.dart::PracticeStorage" o-- "startup::models::practice::storage.dart::PracticeStorage"
 
+class "startup::models::tests::test_case.dart::TestCase" {
+  -TestData _data
+  +bool checkAnswer()
+}
+
+"startup::models::tests::test_case.dart::TestCase" o-- "startup::models::tests::test_data.dart::TestData"
+
+class "startup::models::tests::test_data.dart::TestData" {
+}
+
+class "startup::models::tests::test_status.dart::TestStatus" {
+  {static} +TestStatus none
+  {static} +TestStatus unvisited
+  {static} +TestStatus uncompleted
+  {static} +TestStatus completed
+}
+
+"startup::models::tests::test_status.dart::TestStatus" o-- "startup::models::tests::test_status.dart::TestStatus"
+"dart::core::Enum" <|-- "startup::models::tests::test_status.dart::TestStatus"
+
+abstract class "startup::models::tests::user_mixin.dart::TestUserMixin" {
+  {static} +dynamic uncompleteTest()
+  {static} +dynamic completeTest()
+  {static} +dynamic updateTests()
+}
+
 class "startup::models::theory::storage.dart::TheoryStorage" {
   {static} -TheoryStorage _instance
   {static} -dynamic _get
   {static} +TheoryStorage instance
-  -dynamic _update()
+  +dynamic update()
   +Stream<DataSnapshot> stream()
   +Theory? get()
-  +List<Theory?> getPractices()
+  +Theory? getById()
+  +List<Theory?> getTheory()
 }
 
 "startup::models::theory::storage.dart::TheoryStorage" o-- "startup::models::theory::storage.dart::TheoryStorage"
 
 class "startup::models::theory::theory.dart::Theory" {
+  -TestStatus _status
+  +TestStatus status
+  +TestCase getCase()
+}
+
+"startup::models::theory::theory.dart::Theory" o-- "startup::models::tests::test_status.dart::TestStatus"
+
+abstract class "startup::models::theory::user_mixin.dart::TheoryUserMixin" {
+  {static} +dynamic visitTheory()
+  {static} +dynamic updateVisitedTheory()
 }
 
 class "startup::models::user::auth.dart::Auth" {
@@ -43,6 +115,16 @@ class "startup::models::user::auth.dart::Auth" {
   {static} +dynamic logout()
   {static} +dynamic autoLogin()
 }
+
+class "startup::models::user::user.dart::UserProfile" {
+  {static} +UserProfile instance
+  {static} +dynamic update()
+  {static} +dynamic save()
+}
+
+"startup::models::user::user.dart::UserProfile" o-- "startup::models::user::user.dart::UserProfile"
+"startup::models::theory::user_mixin.dart::TheoryUserMixin" <|-- "startup::models::user::user.dart::UserProfile"
+"startup::models::tests::user_mixin.dart::TestUserMixin" <|-- "startup::models::user::user.dart::UserProfile"
 
 class "startup::models::user::_exceptions.dart::AuthException" {
 }
@@ -130,6 +212,19 @@ class "startup::models::user::_exceptions.dart::AuthPasswordWrongException" {
 
 "startup::models::user::_exceptions.dart::AuthPasswordException" <|-- "startup::models::user::_exceptions.dart::AuthPasswordWrongException"
 
+class "startup::screens::achievements.dart::AchievementsScreen" {
+  +AchievementsScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::achievements.dart::AchievementsScreen"
+
+class "startup::screens::achievements.dart::AchievementsScreenState" {
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::achievements.dart::AchievementsScreenState"
+
 class "startup::screens::change_level.dart::ChangeLevelScreen" {
   +ChangeLevelScreenState createState()
 }
@@ -166,6 +261,7 @@ class "startup::screens::change_theory.dart::ChangeTheoryScreen" {
 
 class "startup::screens::change_theory.dart::ChangeTheoryScreenState" {
   +Widget build()
+  +void dispose()
 }
 
 "startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreenState"
@@ -265,6 +361,7 @@ class "startup::screens::plan.dart::PlanScreen" {
 class "startup::screens::plan.dart::PlanScreenState" {
   -dynamic _getInitialValue()
   -dynamic _saveValue()
+  +void initState()
   +Widget build()
 }
 
@@ -280,6 +377,7 @@ class "startup::screens::plan_preview.dart::PlanPreviewScreen" {
 
 class "startup::screens::plan_preview.dart::PlanPreviewScreenState" {
   +Widget build()
+  +void dispose()
 }
 
 "startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::plan_preview.dart::PlanPreviewScreenState"
@@ -320,17 +418,60 @@ class "startup::screens::templates::with_back.dart::ScreenWithBackState" {
 
 "startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::with_back.dart::ScreenWithBackState"
 
+class "startup::screens::test.dart::TestScreen" {
+  +Theory theory
+  +TestCase testCase
+  +TestScreenState createState()
+  {static} +dynamic exitTap()
+  +dynamic setRadioValue()
+  +dynamic getAnswer()
+}
+
+"startup::screens::test.dart::TestScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::test.dart::TestScreen" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::test.dart::TestScreen"
+
+class "startup::screens::test.dart::TestScreenState" {
+  +TestCase testCase
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::test.dart::TestScreenState" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::test.dart::TestScreenState"
+
+class "startup::screens::test_result.dart::TestResultScreen" {
+  +Theory theory
+  +TestCase testCase
+  +TestResultScreenState createState()
+}
+
+"startup::screens::test_result.dart::TestResultScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::test_result.dart::TestResultScreen" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::test_result.dart::TestResultScreen"
+
+class "startup::screens::test_result.dart::TestResultScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::test_result.dart::TestResultScreenState"
+
 class "startup::screens::theory.dart::TheoryScreen" {
   +Theory theory
   +TheoryScreenState createState()
   {static} +dynamic exitTap()
+  +dynamic testTap()
 }
 
 "startup::screens::theory.dart::TheoryScreen" o-- "startup::models::theory::theory.dart::Theory"
 "startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::theory.dart::TheoryScreen"
 
 class "startup::screens::theory.dart::TheoryScreenState" {
+  +void initState()
   +Widget build()
+  +void dispose()
+  +dynamic checkComplete()
 }
 
 "startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::theory.dart::TheoryScreenState"
@@ -346,6 +487,20 @@ class "startup::shared::scheme_plan.dart::SchemePlan" {
 }
 
 class "startup::shared::strings.dart::StaticStrings" {
+}
+
+class "startup::widgets::achievement.dart::AchievementView" {
+  +Achievement? achievement
+  +State<AchievementView> createState()
+}
+
+"startup::widgets::achievement.dart::AchievementView" o-- "startup::models::achievements::achievement.dart::Achievement"
+
+class "startup::widgets::achievement.dart::_AchievementViewState" {
+  +void initState()
+  +Widget build()
+  -Widget _buildNull()
+  -Widget _buildAchievement()
 }
 
 class "startup::widgets::chapter_button.dart::ChapterButton" {
@@ -400,6 +555,41 @@ class "startup::widgets::practice_button.dart::PracticeButton" {
 }
 
 "startup::widgets::practice_button.dart::PracticeButton" o-- "startup::models::practice::practice.dart::Practice"
+
+abstract class "startup::widgets::test_answer.dart::TestAnswer" {
+  +TestScreen parent
+}
+
+"startup::widgets::test_answer.dart::TestAnswer" o-- "startup::screens::test.dart::TestScreen"
+
+abstract class "startup::widgets::test_answer.dart::TestAnswerState" {
+  +Widget build()
+  +dynamic onTap()
+}
+
+class "startup::widgets::test_answer_check.dart::TestAnswerCheck" {
+  +TestAnswerCheckState createState()
+}
+
+"startup::widgets::test_answer.dart::TestAnswer" <|-- "startup::widgets::test_answer_check.dart::TestAnswerCheck"
+
+class "startup::widgets::test_answer_check.dart::TestAnswerCheckState" {
+  +dynamic onTap()
+}
+
+"startup::widgets::test_answer.dart::TestAnswerState" <|-- "startup::widgets::test_answer_check.dart::TestAnswerCheckState"
+
+class "startup::widgets::test_answer_radio.dart::TestAnswerRadio" {
+  +TestAnswerRadioState createState()
+}
+
+"startup::widgets::test_answer.dart::TestAnswer" <|-- "startup::widgets::test_answer_radio.dart::TestAnswerRadio"
+
+class "startup::widgets::test_answer_radio.dart::TestAnswerRadioState" {
+  +dynamic onTap()
+}
+
+"startup::widgets::test_answer.dart::TestAnswerState" <|-- "startup::widgets::test_answer_radio.dart::TestAnswerRadioState"
 
 class "startup::widgets::theory_button.dart::TheoryButton" {
   +Theory theory

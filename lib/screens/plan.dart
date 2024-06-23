@@ -12,7 +12,7 @@ class PlanScreen extends MainScreen {
   static BuildContext? context;
   final int index;
 
-  PlanScreen({super.key, required this.index})
+  const PlanScreen({super.key, required this.index})
       : super(onExitTap: PlanScreen.exitTap, title: StaticStrings.planTitle);
 
   @override

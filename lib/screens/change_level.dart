@@ -49,10 +49,13 @@ class ChangeLevelScreenState extends ScreenWithBackState {
           color: StaticColors.back,
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: chapterButtons,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: chapterButtons,
+          ),
         ),
       ),
     ));
@@ -93,7 +96,7 @@ class ChangeLevelScreenState extends ScreenWithBackState {
           type: PageTransitionType.size,
           duration: const Duration(milliseconds: 250),
           child:
-          PlanPreviewScreen(),
+          const PlanPreviewScreen(),
         ));
   }
 }

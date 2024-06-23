@@ -1,5 +1,4 @@
 import '../theory/storage.dart';
-import '../user/user.dart';
 import 'achievement.dart';
 
 class AchievementAllTheory extends Achievement {
@@ -15,14 +14,19 @@ class AchievementAllTheory extends Achievement {
   @override
   Future<bool> get isCompleted async {
     await TheoryStorage.instance.update();
-    return UserProfile.countVisitedTheory == TheoryStorage.instance.size;
+    for (var i = 0; i < TheoryStorage.instance.size; i++) {
+      if (!(TheoryStorage.instance.get(i)?.visited ?? false)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @override
   String label = 'Прочитать все темы курса';
 
   @override
-  set isCompleted(Future<bool> _isCompleted) {
+  set isCompleted(Future<bool> _) {
     throw UnimplementedError();
   }
 }

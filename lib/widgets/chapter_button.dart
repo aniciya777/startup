@@ -16,11 +16,11 @@ class ChapterButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-              width: 180,
-              height: 180,
+              width: 170,
+              height: 170,
               decoration: ShapeDecoration(
                 image: DecorationImage(
                   image: image,

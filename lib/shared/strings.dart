@@ -26,11 +26,17 @@ class StaticStrings {
   static const String theoryTitle = 'ВЫБЕРИТЕ ТЕМУ:';
   static const String testOnTopic = 'Тест по теме';
   static const String topic = 'Тема';
+  static const String test = 'Тест';
   static const String myPlanTitle = 'Мой план';
   static const String next = 'Далее';
   static const String planTitle = 'Мой бизнес-план';
   static const String planPlaceholder = 'Напишите тут свои выводы...';
   static const String advice = 'Совет: ';
+  static const String getAnswer = 'Ответить';
+  static const String testSolved = 'Правильный ответ!\nПоздравляем!';
+  static const String testNotSolved = 'Неправильный ответ!\nПопробуйте ещё раз!';
+  static const String repeatAnswer = 'Ещё раз';
+  static const String nextTest = 'Следующий вопрос';
   static const String errorEmailUse = 'email уже используется';
   static const String errorPasswordWeak = 'пароль слишком слабый';
   static const String errorPasswordNotMatch = 'пароли не совпадают';
@@ -42,4 +48,6 @@ class StaticStrings {
   static const String errorEmailNotFound = 'email не зарегистрирован';
   static const String errorPasswordInvalid = 'неверный пароль';
   static const String errorCredentialsInvalid = 'неверный email/пароль';
+  static const String errorNetwork = 'нет сети';
+  static const String errorNotAnswer = 'Вы не ответили на вопрос';
 }

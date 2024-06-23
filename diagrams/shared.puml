@@ -57,11 +57,13 @@ class "startup::shared::strings.dart::StaticStrings" {
   {static} +String theoryTitle
   {static} +String testOnTopic
   {static} +String topic
+  {static} +String test
   {static} +String myPlanTitle
   {static} +String next
   {static} +String planTitle
   {static} +String planPlaceholder
   {static} +String advice
+  {static} +String getAnswer
   {static} +String errorEmailUse
   {static} +String errorPasswordWeak
   {static} +String errorPasswordNotMatch

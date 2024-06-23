@@ -1,6 +1,24 @@
 @startuml
 set namespaceSeparator ::
 
+class "startup::models::achievements::all_practice.dart::AchievementAllPractice" {
+  {static} -AchievementAllPractice _singleton
+  +String label
+  +dynamic isCompleted
+}
+
+"startup::models::achievements::all_practice.dart::AchievementAllPractice" o-- "startup::models::achievements::all_practice.dart::AchievementAllPractice"
+"startup::models::achievements::achievement.dart::Achievement" <|-- "startup::models::achievements::all_practice.dart::AchievementAllPractice"
+
+class "startup::models::achievements::all_theory.dart::AchievementAllTheory" {
+  {static} -AchievementAllTheory _singleton
+  +String label
+  +dynamic isCompleted
+}
+
+"startup::models::achievements::all_theory.dart::AchievementAllTheory" o-- "startup::models::achievements::all_theory.dart::AchievementAllTheory"
+"startup::models::achievements::achievement.dart::Achievement" <|-- "startup::models::achievements::all_theory.dart::AchievementAllTheory"
+
 class "startup::models::plan::storage.dart::PlanStorage" {
   {static} +dynamic get()
   {static} +dynamic set()
@@ -24,14 +42,16 @@ class "startup::models::practice::storage.dart::PracticeStorage" {
 
 class "startup::models::theory::storage.dart::TheoryStorage" {
   {static} -List<Theory> _storage
+  {static} -Map<int, int> _idMap
   {static} -TheoryStorage _instance
   {static} -dynamic _get
   {static} +TheoryStorage instance
   +int size
-  -dynamic _update()
+  +dynamic update()
   +Stream<DataSnapshot> stream()
   +Theory? get()
-  +List<Theory?> getPractices()
+  +Theory? getById()
+  +List<Theory?> getTheory()
 }
 
 "startup::models::theory::storage.dart::TheoryStorage" o-- "startup::models::theory::storage.dart::TheoryStorage"
@@ -40,6 +60,22 @@ class "startup::models::theory::theory.dart::Theory" {
   +int id
   +String title
   +String text
+  +bool visited
+  -TestStatus _status
+  -List<TestData> _tests
+  +StreamController<TestStatus> statusStream
+  +TestStatus status
+  +int testsCount
+  +TestCase getCase()
+}
+
+"startup::models::theory::theory.dart::Theory" o-- "startup::models::tests::test_status.dart::TestStatus"
+"startup::models::theory::theory.dart::Theory" o-- "dart::async::StreamController<TestStatus>"
+
+abstract class "startup::models::theory::user_mixin.dart::TheoryUserMixin" {
+  {static} -Set<int> _visitedTheory
+  {static} +dynamic visitTheory()
+  {static} +dynamic updateVisitedTheory()
 }
 
 class "startup::models::user::auth.dart::Auth" {
@@ -52,6 +88,17 @@ class "startup::models::user::auth.dart::Auth" {
   {static} +dynamic logout()
   {static} +dynamic autoLogin()
 }
+
+class "startup::models::user::user.dart::UserProfile" {
+  {static} +UserProfile instance
+  {static} +String id
+  {static} +dynamic update()
+  {static} +dynamic save()
+}
+
+"startup::models::user::user.dart::UserProfile" o-- "startup::models::user::user.dart::UserProfile"
+"startup::models::theory::user_mixin.dart::TheoryUserMixin" <|-- "startup::models::user::user.dart::UserProfile"
+"startup::models::tests::user_mixin.dart::TestUserMixin" <|-- "startup::models::user::user.dart::UserProfile"
 
 
 @enduml

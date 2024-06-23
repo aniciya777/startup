@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:startup/models/tests/test_status.dart';
 import 'package:startup/models/theory/theory.dart';
-import 'package:startup/models/user/user.dart';
+import 'package:startup/models/theory/user_mixin.dart';
 import 'package:startup/screens/templates/main.dart';
+import 'package:startup/screens/test.dart';
 import 'package:startup/shared/strings.dart';
 
 import '../shared/colors.dart';
@@ -12,39 +15,57 @@ class TheoryScreen extends MainScreen {
   late final Theory theory;
   static BuildContext? context;
 
-  TheoryScreen(Theory theory, {key})
+  TheoryScreen(this.theory, {super.key})
       : super(
-          key: key,
           onExitTap: TheoryScreen.exitTap,
           title: StaticStrings.topic,
           subTitle: theory.title,
-        ) {
-    this.theory = theory;
-  }
+        );
 
   @override
   TheoryScreenState createState() => TheoryScreenState();
 
   @override
   Widget get footer {
-    return Container(
-      height: 54,
-      decoration: const BoxDecoration(color: StaticColors.back),
-      padding: const EdgeInsets.all(12),
-      child: GestureDetector(
-        onTap: () => {},
-        child: const Text(
-          StaticStrings.testOnTopic,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w400,
-            decoration: TextDecoration.underline,
-            decorationColor: Colors.black,
-            decorationStyle: TextDecorationStyle.solid,
-            height: 0,
-          ),
+    return StreamBuilder<TestStatus>(
+      stream: theory.statusStream.stream,
+      builder: (context, snapshot) {
+        return Container(
+          height: 54,
+          decoration: BoxDecoration(color: footerColor),
+          padding: const EdgeInsets.all(12),
+          child: subFooter,
+        );
+      }
+    );
+  }
+
+  Color get footerColor {
+    if (theory.status == TestStatus.completed) {
+      return StaticColors.practiceSolved;
+    } else if (theory.status == TestStatus.uncompleted) {
+      return StaticColors.practiceNotSolved;
+    }
+    return StaticColors.back;
+  }
+
+  Widget get subFooter {
+    if (theory.status == TestStatus.none) {
+      return Container();
+    }
+    return GestureDetector(
+      onTap: testTap,
+      child: const Text(
+        StaticStrings.testOnTopic,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 24,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w400,
+          decoration: TextDecoration.underline,
+          decorationColor: Colors.black,
+          decorationStyle: TextDecorationStyle.solid,
+          height: 0,
         ),
       ),
     );
@@ -54,6 +75,17 @@ class TheoryScreen extends MainScreen {
     if (context != null) {
       Navigator.of(context!).pop();
     }
+  }
+
+  testTap() {
+    Navigator.push(
+        context!,
+        PageTransition(
+          alignment: Alignment.center,
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 250),
+          child:  TestScreen(theory, 0),
+        ));
   }
 }
 
@@ -106,7 +138,7 @@ class TheoryScreenState extends MainScreenState {
   checkComplete() {
     if (_controller.offset >= _controller.position.maxScrollExtent ||
         _controller.position.maxScrollExtent <= _controller.position.viewportDimension) {
-      UserProfile.visitTheory((widget as TheoryScreen).theory.id);
+      TheoryUserMixin.visitTheory((widget as TheoryScreen).theory.id);
     }
   }
 

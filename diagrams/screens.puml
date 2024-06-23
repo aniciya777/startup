@@ -1,6 +1,19 @@
 @startuml
 set namespaceSeparator ::
 
+class "startup::screens::achievements.dart::AchievementsScreen" {
+  +AchievementsScreenState createState()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::achievements.dart::AchievementsScreen"
+
+class "startup::screens::achievements.dart::AchievementsScreenState" {
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::achievements.dart::AchievementsScreenState"
+
 class "startup::screens::change_level.dart::ChangeLevelScreen" {
   +ChangeLevelScreenState createState()
 }
@@ -39,6 +52,7 @@ class "startup::screens::change_theory.dart::ChangeTheoryScreen" {
 
 class "startup::screens::change_theory.dart::ChangeTheoryScreenState" {
   +Widget build()
+  +void dispose()
 }
 
 "startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::change_theory.dart::ChangeTheoryScreenState"
@@ -137,6 +151,7 @@ class "startup::screens::plan.dart::PlanScreenState" {
   +int index
   -dynamic _getInitialValue()
   -dynamic _saveValue()
+  +void initState()
   +Widget build()
 }
 
@@ -154,6 +169,7 @@ class "startup::screens::plan_preview.dart::PlanPreviewScreenState" {
   {static} -DatabaseReference _ref
   +String text
   +Widget build()
+  +void dispose()
 }
 
 "startup::screens::plan_preview.dart::PlanPreviewScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
@@ -197,17 +213,68 @@ class "startup::screens::templates::with_back.dart::ScreenWithBackState" {
 
 "startup::screens::templates::default.dart::DefaultScreenState" <|-- "startup::screens::templates::with_back.dart::ScreenWithBackState"
 
+class "startup::screens::test.dart::TestScreen" {
+  +Theory theory
+  +int indexQuestion
+  +TestCase testCase
+  +List<bool> flags
+  +int? answerGroupValue
+  +TestScreenState createState()
+  {static} +dynamic exitTap()
+  +dynamic setRadioValue()
+  +dynamic getAnswer()
+}
+
+"startup::screens::test.dart::TestScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::test.dart::TestScreen" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::test.dart::TestScreen"
+
+class "startup::screens::test.dart::TestScreenState" {
+  +int index
+  +int count
+  +TestCase testCase
+  +List<Widget> answers
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"startup::screens::test.dart::TestScreenState" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::test.dart::TestScreenState"
+
+class "startup::screens::test_result.dart::TestResultScreen" {
+  +Theory theory
+  +int indexQuestion
+  +TestCase testCase
+  +bool result
+  +TestResultScreenState createState()
+}
+
+"startup::screens::test_result.dart::TestResultScreen" o-- "startup::models::theory::theory.dart::Theory"
+"startup::screens::test_result.dart::TestResultScreen" o-- "startup::models::tests::test_case.dart::TestCase"
+"startup::screens::templates::with_back.dart::ScreenWithBack" <|-- "startup::screens::test_result.dart::TestResultScreen"
+
+class "startup::screens::test_result.dart::TestResultScreenState" {
+  +Widget build()
+}
+
+"startup::screens::templates::with_back.dart::ScreenWithBackState" <|-- "startup::screens::test_result.dart::TestResultScreenState"
+
 class "startup::screens::theory.dart::TheoryScreen" {
   +Theory theory
   +TheoryScreenState createState()
   {static} +dynamic exitTap()
+  +dynamic testTap()
 }
 
 "startup::screens::theory.dart::TheoryScreen" o-- "startup::models::theory::theory.dart::Theory"
 "startup::screens::templates::main.dart::MainScreen" <|-- "startup::screens::theory.dart::TheoryScreen"
 
 class "startup::screens::theory.dart::TheoryScreenState" {
+  +void initState()
   +Widget build()
+  +void dispose()
+  +dynamic checkComplete()
 }
 
 "startup::screens::templates::main.dart::MainScreenState" <|-- "startup::screens::theory.dart::TheoryScreenState"

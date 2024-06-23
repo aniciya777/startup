@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -7,7 +6,7 @@ import '../screens/theory.dart';
 
 class TheoryButton extends StatelessWidget {
   final Theory theory;
-  late final BuildContext _context;
+  late BuildContext _context;
 
   TheoryButton({super.key, required this.theory});
 

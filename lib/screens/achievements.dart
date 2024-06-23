@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:startup/models/achievements/storage.dart';
 import 'package:startup/screens/templates/with_back.dart';

@@ -6,6 +6,7 @@ import 'package:startup/screens/plan.dart';
 import 'package:startup/screens/templates/main.dart';
 import 'package:startup/shared/strings.dart';
 
+import '../shared/base.dart';
 import '../shared/colors.dart';
 import '../shared/markdown.dart';
 import '../widgets/menu_button.dart';
@@ -13,7 +14,7 @@ import '../widgets/menu_button.dart';
 class PlanPreviewScreen extends MainScreen {
   static BuildContext? context;
 
-  PlanPreviewScreen({super.key})
+  const PlanPreviewScreen({super.key})
       : super(
           onExitTap: PlanPreviewScreen.exitTap,
           title: StaticStrings.myPlanTitle,
@@ -50,26 +51,24 @@ class PlanPreviewScreen extends MainScreen {
         PageTransition(
           type: PageTransitionType.fade,
           duration: const Duration(milliseconds: 250),
-          child: PlanScreen(index: 0),
+          child: const PlanScreen(index: 0),
         ));
   }
 }
 
 class PlanPreviewScreenState extends MainScreenState {
-  static final DatabaseReference _ref = FirebaseDatabase.instance.ref();
-  late Stream<DataSnapshot> _stream;
+  late Stream<Object?> _stream;
   late String text;
   final controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     PlanPreviewScreen.context = context;
+    var get = Base.get('plan_preview');
 
-
-    var get = _ref.child('plan_preview').get();
     _stream = get.asStream();
-    get.then((DataSnapshot snapshot) {
-      text = snapshot.value as String;
+    get.then((Object? value) {
+      text = value! as String;
     });
 
     return builder(context, Container(
@@ -82,7 +81,7 @@ class PlanPreviewScreenState extends MainScreenState {
         ),
       ),
       padding: const EdgeInsets.all(7),
-      child: StreamBuilder<DataSnapshot>(
+      child: StreamBuilder<Object?>(
           stream: _stream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

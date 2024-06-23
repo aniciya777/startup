@@ -50,7 +50,7 @@ class ChangeTheoryScreenState extends ScreenWithBackState {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: StreamBuilder<DataSnapshot>(
+                child: StreamBuilder<Object?>(
                     stream: TheoryStorage.instance.stream(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {

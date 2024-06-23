@@ -29,10 +29,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -46,9 +43,20 @@ class DefaultFirebaseOptions {
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
     authDomain: 'startup-my-app.firebaseapp.com',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'startup-my-app.appspot.com',
     measurementId: 'G-7XX9H6HB3T',
-    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+      apiKey: "AIzaSyDxt0pJs3S9PqUDAfMPePLGuWa86agMXgo",
+      authDomain: "startup-my-app.firebaseapp.com",
+      databaseURL: "https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "startup-my-app",
+      storageBucket: "startup-my-app.appspot.com",
+      messagingSenderId: "264923401330",
+      appId: "1:264923401330:web:bc2ac394fd20f9a6efc6eb",
+      measurementId: "G-BYYRKGWLYH"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -56,8 +64,8 @@ class DefaultFirebaseOptions {
     appId: '1:264923401330:android:7a69d1051ea97f5aefc6eb',
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
-    storageBucket: 'startup-my-app.appspot.com',
     databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'startup-my-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -65,9 +73,10 @@ class DefaultFirebaseOptions {
     appId: '1:264923401330:ios:e8249ee623f577b8efc6eb',
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
-    storageBucket: 'startup-my-app.appspot.com',
-    iosBundleId: 'edu.anisiya.startup',
     databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'startup-my-app.appspot.com',
+    iosClientId: '264923401330-o9iebtsbe3qhk50vdth89dj6r5c37d7t.apps.googleusercontent.com',
+    iosBundleId: 'edu.anisiya.startup',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,9 +84,10 @@ class DefaultFirebaseOptions {
     appId: '1:264923401330:ios:e8249ee623f577b8efc6eb',
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
-    storageBucket: 'startup-my-app.appspot.com',
-    iosBundleId: 'edu.anisiya.startup',
     databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'startup-my-app.appspot.com',
+    iosClientId: '264923401330-o9iebtsbe3qhk50vdth89dj6r5c37d7t.apps.googleusercontent.com',
+    iosBundleId: 'edu.anisiya.startup',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -86,9 +96,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '264923401330',
     projectId: 'startup-my-app',
     authDomain: 'startup-my-app.firebaseapp.com',
+    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'startup-my-app.appspot.com',
     measurementId: 'G-DLPHBHV0XZ',
-    databaseURL: 'https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app',
   );
 
 }

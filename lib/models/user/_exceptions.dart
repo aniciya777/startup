@@ -18,6 +18,11 @@ class AuthCredentialsInvalidException extends AuthException {
   String toString() => StaticStrings.errorCredentialsInvalid;
 }
 
+class AuthNetworkException extends AuthException {
+  @override
+  String toString() => StaticStrings.errorNetwork;
+}
+
 class AuthEmailInvalidException extends AuthEmailException {
   @override
   String toString() => StaticStrings.errorEmailInvalid;
