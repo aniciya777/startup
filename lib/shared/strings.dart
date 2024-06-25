@@ -1,6 +1,7 @@
 import 'dart:core';
 
 class StaticStrings {
+  static const String appName = 'Мой стартApp';
   static const String game = 'Продолжить курс';
   static const String achievements = 'Достижения';
   static const String logout = 'Выйти из аккаунта';

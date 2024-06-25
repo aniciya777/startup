@@ -12,7 +12,7 @@ class ChangePracticeScreen extends ScreenWithBack {
 }
 
 class ChangePracticeScreenState extends ScreenWithBackState {
-  final List<Widget> practices = PracticeStorage.getPractices().map((practice) {
+  final List<Widget> practices = PracticeStorage().getPractices().map((practice) {
     return PracticeButton(practice: practice);
   }).toList();
 

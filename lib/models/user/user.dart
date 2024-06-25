@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:startup/models/tests/user_mixin.dart';
 import 'package:startup/models/theory/user_mixin.dart';
-import 'package:startup/models/user/easter_egg.dart';
 
 class UserProfile with TheoryUserMixin, TestUserMixin {
   static final _obj = FirebaseAuth.instance;

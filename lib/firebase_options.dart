@@ -50,13 +50,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions linux = FirebaseOptions(
       apiKey: "AIzaSyDxt0pJs3S9PqUDAfMPePLGuWa86agMXgo",
+      appId: "1:264923401330:web:2d51f4d9bba525aeefc6eb",
+      messagingSenderId: "264923401330",
+      projectId: "startup-my-app",
       authDomain: "startup-my-app.firebaseapp.com",
       databaseURL: "https://startup-my-app-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "startup-my-app",
       storageBucket: "startup-my-app.appspot.com",
-      messagingSenderId: "264923401330",
-      appId: "1:264923401330:web:bc2ac394fd20f9a6efc6eb",
-      measurementId: "G-BYYRKGWLYH"
+      measurementId: "G-FSREEV0WCH"
   );
 
   static const FirebaseOptions android = FirebaseOptions(

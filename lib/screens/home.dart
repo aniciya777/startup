@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:startup/models/user/easter_egg.dart';
-import 'package:startup/models/user/user.dart';
 import 'package:startup/screens/achievements.dart';
 import 'package:startup/screens/change_level.dart';
 import 'package:startup/shared/strings.dart';

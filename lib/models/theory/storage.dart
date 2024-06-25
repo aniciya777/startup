@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:startup/models/theory/theory.dart';
 import 'package:startup/models/theory/user_mixin.dart';
@@ -46,7 +45,7 @@ class TheoryStorage {
   }
 
   Theory? get(int index) {
-    if (index > _storage.length || index < 0) return null;
+    if (index >= _storage.length || index < 0) return null;
     return _storage[index];
   }
 
@@ -55,14 +54,6 @@ class TheoryStorage {
       return null;
     }
     return _storage[_idMap[id]!];
-  }
-
-  List<Theory?> getTheory() {
-    List<Theory?> result = [];
-    for (int i = 0; i < size; i++) {
-      result.add(get(i + 1));
-    }
-    return result;
   }
 
   int get size {

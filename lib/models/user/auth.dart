@@ -126,9 +126,9 @@ class Auth {
     String password = prefs.getString(_passwordKey) ?? '';
     try {
       await loginUser(email, password);
-    } on AuthNetworkException catch (e) {
+    } on AuthNetworkException catch (_) {
       return false;
-    } catch (e) {
+    } catch (_) {
       await logout();
       return false;
     }

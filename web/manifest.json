@@ -1,11 +1,11 @@
 {
-    "name": "startup",
-    "short_name": "startup",
+    "name": "Мой стартApp",
+    "short_name": "Мой стартApp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#C6D9DB",
     "theme_color": "#C6D9DB",
-    "description": "A new Flutter project.",
+    "description": "Образовательное приложение для начинающих предпринимателей",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

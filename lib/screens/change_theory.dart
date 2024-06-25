@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:startup/models/theory/storage.dart';
 import 'package:startup/screens/templates/with_back.dart';
 import 'package:startup/shared/colors.dart';

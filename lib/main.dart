@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:startup/screens/achievements.dart';
@@ -18,6 +18,7 @@ import 'package:startup/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:startup/shared/strings.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,13 +30,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  if (!kIsWeb) {
+    FirebaseDatabase.instance.setPersistenceEnabled(true);
+  }
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-  if (Platform.isAndroid || Platform.isIOS || Platform.isMacOS) {
-    PlatformDispatcher.instance.onError = (error, stack) {
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      return true;
+  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS || Platform.isMacOS)) {
+      PlatformDispatcher.instance.onError = (error, stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
     };
   }
   runApp(const MyApp());
@@ -48,6 +51,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return KeyboardVisibilityProvider(
       child: MaterialApp(
+        title: StaticStrings.appName,
+        debugShowCheckedModeBanner: false,
         builder: FToastBuilder(),
         theme: ThemeData(
           colorScheme:

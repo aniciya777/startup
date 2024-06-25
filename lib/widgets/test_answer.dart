@@ -20,14 +20,19 @@ abstract class TestAnswerState extends State<TestAnswer> {
           children: [
             interactionWidget,
             const SizedBox(width: 10),
-            Text(
-              widget.answer,
-              style: const TextStyle(
-                color: StaticColors.buttonText,
-                fontSize: 20,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-                height: 0,
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  widget.answer,
+                  style: const TextStyle(
+                    color: StaticColors.buttonText,
+                    fontSize: 20,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
               ),
             ),
           ],

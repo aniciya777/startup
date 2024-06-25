@@ -28,7 +28,7 @@ class Base {
         return null;
       }
     }
-    var snapshot = await FirebaseDatabase.instance.ref().child(path).get();
+    var snapshot = await _db.child(path).get();
     return snapshot.value;
   }
 
@@ -36,12 +36,13 @@ class Base {
     if (isNotImplemented) {
       final url = '$_url/$path.json';
       var body = json.encode(value);
-      await http.post(Uri.parse(url),
+      await http.put(Uri.parse(url),
           headers: {"Content-Type": "application/json"},
           body: body
       );
+    } else {
+      await _db.child(path).set(value);
     }
-    await FirebaseDatabase.instance.ref().child(path).set(value);
   }
 
   static bool get isNotImplemented {
