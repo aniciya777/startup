@@ -1,35 +1,30 @@
-import 'package:intl/intl.dart';
+import 'package:startup/models/practice/state.dart';
+import 'package:startup/models/practice/status.dart';
 import 'package:startup/models/practice/strategies/_abstract_strategy.dart';
 
 import 'boost.dart';
 import 'epoch.dart';
 
 class Practice {
-  static final _formatter = NumberFormat('#,###');
-
   final int id;
-  late final String _targetText;
+  final String targetText;
   final int target;
   final int startBalance;
-  late int _balance;
-  int _currentEpoch = 0;
+  PracticeStatus status = PracticeStatus.unvisited;
 
   final Map<String, Boost> boosts = {
     'ad': Boost('ad'),
     'test': Boost('test'),
     'survey': Boost('survey'),
   };
-  List<Epoch> _epochs = [];
+  List<Epoch> epochs = [];
 
   Practice({
     required this.id,
     required this.startBalance,
-    required targetText,
+    required this.targetText,
     required this.target,
-  }) {
-    _targetText = targetText;
-    _balance = startBalance;
-  }
+  });
 
   factory Practice.fromJson(Map<Object?, dynamic> json) {
     Practice obj = Practice(
@@ -43,30 +38,19 @@ class Practice {
         Strategy.fromJson(json['boosts'][boost]),
       );
     }
-    for (var epoch in json['epochs'] as List<dynamic>) {
-      obj._epochs.add(Epoch.fromJson(epoch));
+    for (var epoch in (json['epoches'] as List<dynamic>)) {
+      obj.epochs.add(Epoch.fromJson(epoch));
     }
     return obj;
   }
 
-  static String formatBalance(int balance) {
-    return _formatter.format(balance).replaceAll(',', ' ');
-  }
-
-  String get targetText {
-    return _targetText.
-      replaceAll('%TARGET_BALANCE%', formatBalance(target));
-  }
-
-  int get balance => _balance;
-
   bool? get isComplete {
-    if (_balance >= target) {
-      return true;
-    }
-    if (_currentEpoch >= _epochs.length) {
-      return false;
-    }
     return null;
+  }
+
+  int get countEpochs => epochs.length;
+  
+  PracticeState getState() {
+    return PracticeState(this);
   }
 }

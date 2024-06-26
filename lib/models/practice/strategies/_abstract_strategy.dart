@@ -3,13 +3,11 @@ import 'empty_strategy.dart';
 import 'mul_strategy.dart';
 
 abstract class Strategy {
-  Strategy() {
-    throw UnimplementedError();
-  }
+  Strategy();
 
   factory Strategy.fromJson(Map<Object?, dynamic> json) {
     switch (json['type']) {
-      case null:
+      case 'null':
         return EmptyStrategy();
       case '+':
         return AddStrategy.fromJson(json);

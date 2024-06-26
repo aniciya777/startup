@@ -15,14 +15,15 @@ class AchievementAllTest extends Achievement {
 
   @override
   Future<bool> get isCompleted async {
-    await TheoryStorage.instance.update();
-    for (var i = 0; i < TheoryStorage.instance.size; i++) {
-      var status = TheoryStorage.instance.get(i)?.status ?? TestStatus.none;
-      if (status == TestStatus.unvisited || status == TestStatus.uncompleted) {
-        return false;
-      }
-    }
-    return true;
+    return false;
+    // await TheoryStorage.instance.update();
+    // for (var i = 0; i < TheoryStorage.instance.size; i++) {
+    //   var status = TheoryStorage.instance.get(i)?.status ?? TestStatus.none;
+    //   if (status == TestStatus.unvisited || status == TestStatus.uncompleted) {
+    //     return false;
+    //   }
+    // }
+    // return true;
   }
 
   @override

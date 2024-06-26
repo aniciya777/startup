@@ -46,6 +46,6 @@ class Base {
   }
 
   static bool get isNotImplemented {
-    return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
+    return kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS;
   }
 }

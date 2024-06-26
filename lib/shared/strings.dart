@@ -36,8 +36,19 @@ class StaticStrings {
   static const String getAnswer = 'Ответить';
   static const String testSolved = 'Правильный ответ!\nПоздравляем!';
   static const String testNotSolved = 'Неправильный ответ!\nПопробуйте ещё раз!';
+  static const String practiceSolved = 'Вы выполнили поставленную цель!\nПоздравляем!';
+  static const String practiceNotSolved = 'Вы не выполнили поставленную цель!\nПопробуйте ещё раз!';
+  static const List<String> boostTitles = [
+    'реклама',
+    'тест',
+    'опрос',
+  ];
+
   static const String repeatAnswer = 'Ещё раз';
   static const String nextTest = 'Следующий вопрос';
+  static const String repeatPractice = 'Ещё раз';
+  static const String nextPractice = 'Следующий уровень';
+  static const String balance = 'Баланс';
   static const String errorEmailUse = 'email уже используется';
   static const String errorPasswordWeak = 'пароль слишком слабый';
   static const String errorPasswordNotMatch = 'пароли не совпадают';

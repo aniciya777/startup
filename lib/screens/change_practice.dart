@@ -12,9 +12,7 @@ class ChangePracticeScreen extends ScreenWithBack {
 }
 
 class ChangePracticeScreenState extends ScreenWithBackState {
-  final List<Widget> practices = PracticeStorage().getPractices().map((practice) {
-    return PracticeButton(practice: practice);
-  }).toList();
+  late List<Widget> practices;
 
   final _scrollController = ScrollController();
 
@@ -34,17 +32,31 @@ class ChangePracticeScreenState extends ScreenWithBackState {
           thickness: 10.0,
           thumbVisibility: true,
           trackVisibility: true,
-          child: GridView.count(
-            controller: _scrollController,
-            primary: false,
-            padding: const EdgeInsets.all(50),
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 15,
-            crossAxisCount: 6,
-            children: practices,
-          ),
+          child: StreamBuilder<Object?>(
+              stream: PracticeStorage().stream(),
+              builder: (context, snapshot) {
+                practices = PracticeStorage().getPractices().map((practice) {
+                  return PracticeButton(practice);
+                }).toList();
+
+                return GridView.count(
+                  controller: _scrollController,
+                  primary: false,
+                  padding: const EdgeInsets.all(50),
+                  crossAxisSpacing: 30,
+                  mainAxisSpacing: 15,
+                  crossAxisCount: 6,
+                  children: practices,
+                );
+              }),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

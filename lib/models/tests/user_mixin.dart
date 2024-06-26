@@ -9,6 +9,14 @@ mixin TestUserMixin {
   static final Set<int> _completedTests = {};
   static final Set<int> _uncompletedTests = {};
 
+  static _saveCompletedTests() async {
+    await Base.set('tests_completed/${UserProfile.id}', _completedTests.toList()..sort());
+  }
+
+  static _saveUncompletedTests() async {
+    await Base.set('tests_uncompleted/${UserProfile.id}', _uncompletedTests.toList()..sort());
+  }
+
   static uncompleteTest(int theoryId) async {
     if (_uncompletedTests.contains(theoryId)) {
       return;
@@ -22,7 +30,7 @@ mixin TestUserMixin {
     }
     theory.status = TestStatus.uncompleted;
     _uncompletedTests.add(theoryId);
-    await Base.set('tests_uncompleted/${UserProfile.id}', _uncompletedTests.toList()..sort());
+    await _saveUncompletedTests();
   }
 
   static completeTest(int theoryId) async {
@@ -33,15 +41,13 @@ mixin TestUserMixin {
     if (theory == null) {
       return;
     }
-    if (theory.status == TestStatus.completed) {
-      return;
-    } else if (theory.status == TestStatus.uncompleted) {
+    if (theory.status == TestStatus.uncompleted) {
       _uncompletedTests.remove(theoryId);
-      await Base.set('tests_uncompleted/${UserProfile.id}', _uncompletedTests.toList()..sort());
+      await _saveUncompletedTests();
     }
     theory.status = TestStatus.completed;
     _completedTests.add(theoryId);
-    await Base.set('tests_completed/${UserProfile.id}', _completedTests.toList()..sort());
+    await _saveCompletedTests();
   }
 
   static updateTests() async {

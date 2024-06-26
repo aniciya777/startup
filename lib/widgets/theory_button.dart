@@ -49,7 +49,7 @@ class TheoryButton extends StatelessWidget {
           alignment: Alignment.center,
           type: PageTransitionType.fade,
           duration: const Duration(milliseconds: 250),
-          child:  TheoryScreen(theory),
+          child: TheoryScreen(theory),
         ));
   }
 }

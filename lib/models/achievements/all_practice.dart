@@ -1,8 +1,11 @@
+import 'package:startup/models/practice/storage.dart';
+
+import '../practice/status.dart';
 import 'achievement.dart';
 
 class AchievementAllPractice extends Achievement {
   static final AchievementAllPractice _singleton =
-  AchievementAllPractice._internal();
+      AchievementAllPractice._internal();
 
   factory AchievementAllPractice() {
     return _singleton;
@@ -13,7 +16,16 @@ class AchievementAllPractice extends Achievement {
   @override
   Future<bool> get isCompleted async {
     return false;
-    // TODO: implement isCompleted
+    // await PracticeStorage.instance.update();
+    // for (var i = 0; i < PracticeStorage.instance.size; i++) {
+    //   var practice = PracticeStorage.instance.get(i);
+    //   if (practice != null &&
+    //       !(practice.status == PracticeStatus.unvisited ||
+    //           practice.status == PracticeStatus.uncompleted)) {
+    //     return false;
+    //   }
+    // }
+    // return true;
   }
 
   @override

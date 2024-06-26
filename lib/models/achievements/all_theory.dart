@@ -13,13 +13,14 @@ class AchievementAllTheory extends Achievement {
 
   @override
   Future<bool> get isCompleted async {
-    await TheoryStorage.instance.update();
-    for (var i = 0; i < TheoryStorage.instance.size; i++) {
-      if (!(TheoryStorage.instance.get(i)?.visited ?? false)) {
-        return false;
-      }
-    }
-    return true;
+    return false;
+    // await TheoryStorage.instance.update();
+    // for (var i = 0; i < TheoryStorage.instance.size; i++) {
+    //   if (!(TheoryStorage.instance.get(i)?.visited ?? false)) {
+    //     return false;
+    //   }
+    // }
+    // return true;
   }
 
   @override

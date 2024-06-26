@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:startup/models/practice/storage.dart';
+import 'package:startup/models/practice/user_mixin.dart';
 import 'package:startup/models/tests/user_mixin.dart';
+import 'package:startup/models/theory/storage.dart';
 import 'package:startup/models/theory/user_mixin.dart';
 
-class UserProfile with TheoryUserMixin, TestUserMixin {
+class UserProfile with TheoryUserMixin, TestUserMixin, PracticeUserMixin {
   static final _obj = FirebaseAuth.instance;
 
   static User? _user;
@@ -25,12 +28,9 @@ class UserProfile with TheoryUserMixin, TestUserMixin {
 
   static update() async {
     _user = _obj.currentUser;
+    TheoryStorage.instance.update();
     await TheoryUserMixin.updateVisitedTheory();
     await TestUserMixin.updateTests();
-  }
-
-  static save() async {
-
   }
 
   static String get id => _user?.uid ?? '';

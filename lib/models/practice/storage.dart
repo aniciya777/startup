@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:startup/models/practice/practice.dart';
+import 'package:startup/models/practice/user_mixin.dart';
 
 import '../../shared/base.dart';
 
@@ -7,40 +10,41 @@ class PracticeStorage {
   static final List<Practice> _storage = [];
   static final Map<int, int> _idMap = {};
 
-  static final PracticeStorage _instance = PracticeStorage._internal();
+  static final PracticeStorage instance = PracticeStorage._internal();
 
-  static late Future<Object?> _get;
+  static final StreamController<Object?> _streamController = StreamController<Object?>.broadcast();
 
-  factory PracticeStorage() => _instance;
+  factory PracticeStorage() => instance;
 
   PracticeStorage._internal() {
     update();
   }
 
-  update() {
+  update() async {
     _storage.clear();
     _idMap.clear();
-    _get = Base.get('practice');
-    _get.then((Object? data) {
-      for (var element in (data as List<dynamic>)) {
-        try {
-          var practice = Practice.fromJson(element);
-          _storage.add(practice);
-          _idMap[practice.id] = _storage.length - 1;
-        } catch (e) {
-          if (kDebugMode) {
-            print(e);
-          }
+    Object? data = await Base.get('practice');
+    for (var element in (data as List<dynamic>)) {
+      try {
+        var practice = Practice.fromJson(element);
+        _storage.add(practice);
+        _idMap[practice.id] = _storage.length - 1;
+      } catch (e) {
+        if (kDebugMode) {
+          print(e);
         }
       }
-    });
+    }
+    await PracticeUserMixin.updatePractices();
+    notifyListeners();
   }
 
-
-
+  static notifyListeners() {
+    _streamController.sink.add(null);
+  }
 
   Stream<Object?> stream() {
-    return _get.asStream();
+    return _streamController.stream;
   }
 
   Practice? get(int index) {
@@ -63,7 +67,7 @@ class PracticeStorage {
     return result;
   }
 
-  static int get size {
-    return 10;
+  int get size {
+    return 30;
   }
 }
